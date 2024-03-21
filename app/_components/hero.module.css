@@ -1,0 +1,18 @@
+.flexContainer {
+  composes: sideBySideCenter from '@/app/_components/_utils.module.css';
+}
+
+.text {
+  padding-top: calc(var(--font-size-display) * 0.5);
+  padding-bottom: calc(var(--font-size-display) * 0.7);
+}
+
+.title {
+  font-size: var(--font-size-display);
+  font-weight: 900;
+  letter-spacing: 0.15em;
+}
+
+.subtitle {
+  font-size: var(--font-size-small-heading2);
+}

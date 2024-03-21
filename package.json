@@ -1,0 +1,36 @@
+{
+  "name": "blog",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "init": "mkcert 192.168.1.2",
+    "dev": "next dev -p 9000 -H 192.168.1.2 & local-ssl-proxy --config ssl-config.json",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.5.1",
+    "@fortawesome/free-brands-svg-icons": "^6.5.1",
+    "@fortawesome/free-regular-svg-icons": "^6.5.1",
+    "@fortawesome/free-solid-svg-icons": "^6.5.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@next/third-parties": "^14.1.4",
+    "date-fns": "^3.4.0",
+    "html-react-parser": "^5.1.8",
+    "html-to-text": "^9.0.5",
+    "microcms-js-sdk": "^3.0.0",
+    "next": "^14.1.4",
+    "next-sitemap": "^4.2.3",
+    "plaiceholder": "^3.0.0",
+    "react": "^18",
+    "react-dom": "^18"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "eslint-config-next": "14.1.2"
+  },
+  "volta": {
+    "node": "20.11.1"
+  }
+}

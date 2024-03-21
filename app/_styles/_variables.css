@@ -1,0 +1,35 @@
+/* CSSカスタムプロパティ */
+
+:root {
+  /** カラー **/
+  --color-white: #fff;
+  --color-gray-10: #eee;
+  --color-gray-25: #aaa;
+  --color-gray-50: #707070;
+  --color-gray-75: #444;
+  --color-black: #222;
+  --color-accent: #0d87e0;
+
+  /** フォントサイズ **/
+  --font-size-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem); /* 16-18px */
+  --font-size-display: clamp(4.5rem, 1.83rem + 11.34vw, 10rem); /* 72-160px */
+  --font-size-heading1: clamp(2rem, 1.3rem + 3vw, 4rem); /* 32-64px */
+  --font-size-heading2: calc(var(--font-size-body) * 1.5); /* 24-72px */
+  --font-size-heading3: calc(var(--font-size-body) * 1.2); /* 19.2-21.6px */
+  --font-size-small-heading2: clamp(
+    0.875rem,
+    4vw - 1rem,
+    1.6875rem
+  ); /* 14-27px */
+  --font-size-small-heading3: calc(
+    var(--font-size-small-heading2) * 0.86
+  ); /* 12-23px */
+
+  /** 余白 **/
+  --space-x-small: clamp(1.25rem, 1rem + 0.98vw, 1.875rem); /* 20-30px */
+  --space-small: calc(var(--space-x-small) * 1.5); /* 30-45px */
+  --space-medium: calc(var(--space-x-small) * 2); /* 40-60px */
+  --space-large: calc(var(--space-x-small) * 3); /* 60-90px */
+  --space-x-large: calc(var(--space-x-small) * 4); /* 80-120px */
+  --space-jump: clamp(1.25rem, 0.35rem + 3.8vw, 3.75rem); /* 20-60px */
+}

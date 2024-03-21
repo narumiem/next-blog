@@ -1,0 +1,33 @@
+@import '@/app/_styles/_variables.css';
+@import '@/app/_styles/_reset.css';
+
+body {
+  color: var(--color-black);
+  font-family: -apple-system, BlinkMacSystemFont, /* Apple */ 
+  'Segoe UI', Meiryo, /* Windows */ 
+  Roboto, Oxygen, Ubuntu, Cantarell, /* others */ 
+  'Open Sans', 'Helvetica Neue', sans-serif /* fallback */;
+  font-size: var(--font-size-body);
+}
+h1 {
+  font-size: var(--font-size-heading1);
+}
+h2 {
+  font-size: var(--font-size-heading2);
+}
+h3 {
+  font-size: var(--font-size-heading3);
+}
+
+@media (prefers-color-scheme: light) {
+  /* body {
+    background-color: white;
+    color: black;
+  } */
+}
+@media (prefers-color-scheme: dark) {
+  /* body {
+    background-color: black;
+    color: white;
+  } */
+}

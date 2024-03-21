@@ -1,0 +1,21 @@
+.gridContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-jump);
+  margin-top: var(--space-x-small);
+  margin-bottom: var(--space-large);
+}
+
+.post h2 {
+  margin-top: 0.5em;
+  font-size: var(--font-size-small-heading3);
+  font-weight: 400;
+}
+
+.post figure {
+  position: relative;
+  aspect-ratio: 16/9;
+}
+.post img {
+  object-fit: cover;
+}

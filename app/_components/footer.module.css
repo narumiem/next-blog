@@ -1,0 +1,9 @@
+.wrapper {
+  padding: var(--space-x-large) 0;
+  background-color: var(--color-gray-10);
+}
+
+.flexContaier {
+  composes: sideBySideCenter from '@/app/_components/_utils.module.css';
+  gap: 2em;
+}

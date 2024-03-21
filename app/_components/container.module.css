@@ -2,6 +2,7 @@
   width: 92%;
   max-width: 1152px;
   margin: 0 auto;
+  padding-bottom: var(--space-x-small);
 }
 .large {
   composes: default;

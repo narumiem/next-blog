@@ -19,7 +19,7 @@ export default async function Home() {
     <Container>
       <Hero title="CUBE" subtitle="アウトプットしていくサイト" imageOn />
       <Posts posts={posts} />
-      <Pagination nextUrl="/blog" nextText="More Posts" />
+      <Pagination nextUrl="/blog/page/1" nextText="More Posts" />
     </Container>
   );
 }

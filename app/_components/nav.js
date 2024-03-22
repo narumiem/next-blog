@@ -42,7 +42,7 @@ export default function Nav() {
           </Link>
         </li>
         <li>
-          <Link href="/blog" onClick={closeNav}>
+          <Link href="/blog/page/1" onClick={closeNav}>
             Blog
           </Link>
         </li>

@@ -17,14 +17,23 @@ export function Breadcrumbs() {
         <FontAwesomeIcon icon={faIcon} />
       </li>
       {pathnames.map((path, index) => {
-        return path === 'category' ? null : (
+        return (
           <li key={path} className={styles.item}>
             {index === pathnames.length - 1 ? (
               <span>{path}</span>
             ) : (
               <>
-                <Link href={generateUrl(pathnames, index)}>{path}</Link>
-                <FontAwesomeIcon icon={faIcon} />
+                {path === 'category' || path === 'page' ? (
+                  <>
+                    {path}
+                    <FontAwesomeIcon icon={faIcon} />
+                  </>
+                ) : (
+                  <>
+                    <Link href={generateUrl(pathnames, index)}>{path}</Link>
+                    <FontAwesomeIcon icon={faIcon} />
+                  </>
+                )}
               </>
             )}
           </li>
@@ -35,5 +44,10 @@ export function Breadcrumbs() {
 }
 
 function generateUrl(pathnames, index) {
-  return '/' + pathnames.slice(0, index + 1).join('/');
+  const path =
+    pathnames.slice(0, index + 1).join('/') === 'blog'
+      ? pathnames.slice(0, index + 1).join('/') + '/page/1'
+      : pathnames.slice(0, index + 1).join('/');
+
+  return '/' + path;
 }

@@ -7,8 +7,9 @@ export default function ConvertDate({ dateISO }) {
       {format(
         parseISO(dateISO),
         'yyyy年MM月dd日',
-        { locale: ja, }
+        // { locale: ja, }
+        { timeZone: 'Asia/Tokyo' }
       )}
     </time>
-  )
+  );
 }

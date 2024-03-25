@@ -1,7 +1,7 @@
 import styles from '@/app/_components/post-header.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
-import ConvertDate from '@/app/_lib/date-fns';
+import ConvertDate from '@/app/_lib/dayjs';
 
 export default function PostHeader({ title, subtitle, publishDate = '' }) {
   return (

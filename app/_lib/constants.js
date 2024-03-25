@@ -2,7 +2,7 @@ export const siteMeta = {
   siteTitle: 'CUBE',
   siteTitlePipe: '|',
   siteDesc: 'アウトプットしていくサイト',
-  siteUrl: 'https://192.168.1.2:9001',
+  siteUrl: process.env.SITE_URL,
   siteLang: 'ja',
   siteLocale: 'ja_JP',
   siteType: 'website',
@@ -11,11 +11,11 @@ export const siteMeta = {
   siteRobotsIndex: false,
   siteRobotsfollow: true,
   siteRobotsNocache: true,
-  siteOgpImage: 'https://192.168.1.2:9001/images/opengraph-image.jpg',
+  siteOgpImage: process.env.SITE_URL + '/images/opengraph-image.jpg',
   siteOgpImageWidth: 1200,
   siteOgpImageHeight: 630,
   siteTwitterCard: 'summary_large_image',
-  siteTwitterImage: 'https://192.168.1.2:9001/images/twitter-image.jpg',
+  siteTwitterImage: process.env.SITE_URL + '/images/twitter-image.jpg',
 };
 
 export const eyecatchLocal = {

@@ -10,8 +10,8 @@ export default function ConvertDate({ dateISO }) {
     <time dateTime={dateISO}>
       {dayjs
         .utc(dateISO)
-        .tz(process.env.SITE_TIMEZONE)
-        .format('YYYY年MM月DD日')}
+        .tz(process.env.SITE_TIMEZONE, false)
+        .format('YYYY年MM月DD日 Z')}
     </time>
   );
 }

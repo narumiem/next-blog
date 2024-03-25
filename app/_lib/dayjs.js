@@ -4,16 +4,16 @@ import timezone from 'dayjs/plugin/timezone';
 import siteConfig from '@/app/_const/siteConfig';
 
 export default function ConvertDate({ dateISO }) {
-  const locale = 'ja';
-  const timezone = siteConfig.siteTimezone;
+  const siteLocale = 'ja';
+  const siteTimezone = siteConfig.siteTimezone;
 
   dayjs.extend(utc);
   dayjs.extend(timezone);
-  dayjs.locale(locale);
+  dayjs.locale(siteLocale);
 
   return (
     <time dateTime={dateISO}>
-      {dayjs.utc(dateISO).tz(timezone).format('YYYY年MM月DD日')}
+      {dayjs.utc(dateISO).tz(siteTimezone).format('YYYY年MM月DD日')}
     </time>
   );
 }

@@ -5,7 +5,7 @@ import timezone from 'dayjs/plugin/timezone';
 export default function ConvertDate({ dateISO }) {
   dayjs.extend(utc);
   dayjs.extend(timezone);
-  dayjs.locale('ja')
+  dayjs.locale(process.env.DAYJS_LOCALE);
 
   return (
     <time dateTime={dateISO}>

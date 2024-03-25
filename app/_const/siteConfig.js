@@ -1,5 +1,5 @@
 const siteConfig = {
-  siteUrl: 'https://192.168.1.2:9001',
+  siteUrl: 'https://portfolio-next-blog.narumiem.org/',
   siteName: 'Next Blog',
   siteDescription: 'Next.js で構築する Blog Portfolio',
   siteEmail: 'narumiem@gmail.com',

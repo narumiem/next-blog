@@ -12,7 +12,7 @@ const siteConfig = {
   siteLocale: 'ja_JP',
   siteType: 'website',
   siteTimezone: 'Asia/Tokyo',
-  siteAnalyticsID: 'YOUR_GA_ID',
+  siteAnalyticsID: 'G-EDFYLLGESB',
   siteThemeColor: {
     light: 'skyblue',
     dark: 'orange',

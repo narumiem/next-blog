@@ -15,4 +15,5 @@
 
 .subtitle {
   font-size: var(--font-size-small-heading2);
+  margin-top: 1em;
 }

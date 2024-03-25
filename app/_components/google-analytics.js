@@ -1,10 +1,10 @@
 'use client';
-
 import { useEffect } from 'react';
 import * as gtag from '@/app/_lib/gtag';
 import Script from 'next/script';
 import { usePathname, useSearchParams } from 'next/navigation';
 
+// @next/third-parties へ切り替えたので未使用
 function GoogleAnalytics() {
   const pathname = usePathname();
   const searchParams = useSearchParams();

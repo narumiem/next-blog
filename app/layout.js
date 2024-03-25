@@ -11,6 +11,7 @@ import {
   viewportMetadata,
 } from '@/app/_lib/baseMetadata';
 import { GoogleAnalytics } from '@next/third-parties/google';
+import siteConfig from '@/app/_const/siteConfig';
 
 const { siteLang } = siteMeta;
 
@@ -31,7 +32,7 @@ export default function RootLayout({ children }) {
         <main>{children}</main>
         <Footer />
         {process.env.NODE_ENV === 'production' && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+          <GoogleAnalytics gaId={siteConfig.siteAnalyticsID} />
         )}
       </body>
     </html>

@@ -1,21 +1,23 @@
+import siteConfig from '@/app/_const/siteConfig';
+
 export const siteMeta = {
-  siteTitle: 'CUBE',
+  siteTitle: siteConfig.siteName,
   siteTitlePipe: '|',
-  siteDesc: 'アウトプットしていくサイト',
-  siteUrl: process.env.SITE_URL,
-  siteLang: 'ja',
-  siteLocale: 'ja_JP',
-  siteType: 'website',
-  siteThemeColorLight: 'skyblue', // ライトテーマの時のUIカラー (一部のブラウザ/端末のみ)
-  siteThemeColorDark: 'orange', // ダークテーマの時のUIカラー (一部のブラウザ/端末のみ)
-  siteRobotsIndex: false,
-  siteRobotsfollow: true,
-  siteRobotsNocache: true,
-  siteOgpImage: process.env.SITE_URL + '/images/opengraph-image.jpg',
+  siteDesc: siteConfig.siteDescription,
+  siteUrl: siteConfig.siteUrl,
+  siteLang: siteConfig.siteLang,
+  siteLocale: siteConfig.siteLocale,
+  siteType: siteConfig.siteType,
+  siteThemeColorLight: siteConfig.siteThemeColor.light, // ライトテーマの時のUIカラー (一部のブラウザ/端末のみ)
+  siteThemeColorDark: siteConfig.siteThemeColor.dark, // ダークテーマの時のUIカラー (一部のブラウザ/端末のみ)
+  siteRobotsIndex: siteConfig.siteRobot.index,
+  siteRobotsfollow: siteConfig.siteRobot.follow,
+  siteRobotsNocache: siteConfig.siteRobot.nocache,
+  siteOgpImage: siteConfig.siteUrl + '/images/opengraph-image.jpg',
   siteOgpImageWidth: 1200,
   siteOgpImageHeight: 630,
   siteTwitterCard: 'summary_large_image',
-  siteTwitterImage: process.env.SITE_URL + '/images/twitter-image.jpg',
+  siteTwitterImage: siteConfig.siteUrl + '/images/twitter-image.jpg',
 };
 
 export const eyecatchLocal = {

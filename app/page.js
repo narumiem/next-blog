@@ -2,6 +2,7 @@ import Container from '@/app/_components/container';
 import Hero from '@/app/_components/hero';
 import Pagination from '@/app/_components/pagination';
 import Posts from '@/app/_components/posts';
+import siteConfig from '@/app/_const/siteConfig';
 import { eyecatchLocal } from '@/app/_lib/constants';
 import { getAllPosts } from '@/app/_lib/microcms';
 import { getImageBlurData } from '@/app/_lib/plaiceholder';
@@ -17,7 +18,7 @@ export default async function Home() {
 
   return (
     <Container>
-      <Hero title="CUBE" subtitle="アウトプットしていくサイト" imageOn />
+      <Hero title={siteConfig.siteName} subtitle={siteConfig.siteDescription} imageOn />
       <Posts posts={posts} />
       <Pagination nextUrl="/blog/page/1" nextText="More Posts" />
     </Container>

@@ -1,6 +1,5 @@
 const siteConfig = {
   siteUrl: 'https://192.168.1.2:9001',
-  siteLang: 'ja',
   siteName: 'Next Blog',
   siteDescription: 'Next.js で構築する Blog Portfolio',
   siteEmail: 'narumiem@gmail.com',
@@ -9,6 +8,7 @@ const siteConfig = {
     facebook: '',
     github: 'narumiem',
   },
+  siteLang: 'ja',
   siteLocale: 'ja_JP',
   siteType: 'website',
   siteTimezone: 'Asia/Tokyo',

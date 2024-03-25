@@ -5,12 +5,13 @@ import timezone from 'dayjs/plugin/timezone';
 export default function ConvertDate({ dateISO }) {
   dayjs.extend(utc);
   dayjs.extend(timezone);
+  dayjs.locale('ja')
 
   return (
     <time dateTime={dateISO}>
       {dayjs
         .utc(dateISO)
-        .tz(process.env.SITE_TIMEZONE, false)
+        .tz(process.env.SITE_TIMEZONE)
         .format('YYYY年MM月DD日 Z')}
     </time>
   );

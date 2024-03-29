@@ -8,12 +8,14 @@
   display: flex;
   justify-content: center;
   align-items: stretch;
+  
+}
+.pager a {
   border-radius: 0.3em;
   border: 2px solid var(--color-gray-10);
 }
 .pager a,
-.pager span,
-.pager div {
+.pager span {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,25 +24,25 @@
   color: var(--color-white);
   background-color: var(--color-gray-50);
   border-color: var(--color-gray-50);
+  cursor: default;
 }
 .pager a,
-.pager span,
-.pager div {
+.pager span {
   padding: 0.4em 0.8em;
   width: var(--space-small);
 }
 .disable {
   background-color: var(--color-gray-10);
   color: var(--color-gray-25);
+  border-radius: 0.3em;
+  cursor: default;
 }
 .omit {
   composes: disable;
 }
 
 .prev a,
-.prev div,
-.next a,
-.next div {
+.next a {
   width: auto;
   padding: 0.4em;
 }

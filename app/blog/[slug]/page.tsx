@@ -14,6 +14,7 @@ import Pagination from '@/app/_components/pagination';
 import type { Metadata } from 'next';
 import { eyecatchDefault } from '@/app/_const/site-config';
 import { getAllSlugs, getPostBySlug } from '@/app/_lib/apollo-client';
+import PostTags from '@/app/_components/post-tags';
 
 const rootPathName = 'blog';
 export const dynamicParams = false;
@@ -119,6 +120,7 @@ async function Post({ params }: Param): Promise<React.ReactElement | undefined> 
 
           <TwoColumn.Sidebar>
             <PostCategories categories={post.categories.nodes ?? []} />
+            <PostTags tags={post.tags.nodes ?? []} />
           </TwoColumn.Sidebar>
         </TwoColumn>
 

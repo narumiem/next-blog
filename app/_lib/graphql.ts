@@ -137,6 +137,7 @@ export const GET_ALLTAGS = gql`
 export const GET_ALLPOSTSBYCATEGORY = gql`
   query getAllPostsByCategory($slug: ID = "") {
     category(id: $slug, idType: SLUG) {
+      id
       posts(where: { orderby: { field: DATE, order: DESC } }) {
         nodes {
           id
@@ -179,6 +180,7 @@ export const GET_ALLPOSTSBYCATEGORY = gql`
 export const GET_ALLPOSTSBYTAG = gql`
   query getAllPostsByTag($slug: ID = "") {
     tag(id: $slug, idType: SLUG) {
+      id
       posts(where: { orderby: { field: DATE, order: DESC } }) {
         nodes {
           id

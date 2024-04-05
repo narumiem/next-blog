@@ -3,6 +3,7 @@
   align-items: baseline;
   gap: 0.5rem;
   color: var(--color-gray-50);
+  margin-top: 0.5em;
 }
 @media (min-width: 768px) {
   .flexContainer {

@@ -5,7 +5,11 @@ import { siteMeta } from '@/app/_const/site-meta';
 import { setBlurDataURLForPosts } from '@/app/_lib/plaiceholder';
 import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
 import type { Metadata } from 'next';
-import { getAllCategories, getAllPostsByCategory, getCategoryBySlug } from '@/app/_lib/apollo-client';
+import {
+  getAllPostsByTag,
+  getAllTags,
+  getTagBySlug,
+} from '@/app/_lib/apollo-client';
 
 const { siteTitle, siteTitlePipe, siteUrl } = siteMeta;
 export const dynamicParams = false;
@@ -20,18 +24,18 @@ interface Param {
 }
 
 export async function generateStaticParams(): Promise<StaticParams[] | undefined> {
-  const allCategories = (await getAllCategories()) ?? [];
-  return allCategories.map(({ slug }) => {
+  const allTags = (await getAllTags()) ?? [];
+  return allTags.map(({ slug }) => {
     return { slug: slug };
   });
 }
 
 export async function generateMetadata({ params }: Param): Promise<Metadata | undefined> {
-  const categorySlug = params.slug;
-  const category = await getCategoryBySlug(categorySlug);
-  if (!category) return undefined;
-  const pageTitle = category.name;
-  const pathName = `/category/${categorySlug}`;
+  const tagSlug = params.slug;
+  const tag = await getTagBySlug(tagSlug);
+  if (!tag) return undefined;
+  const pageTitle = tag.name;
+  const pathName = `/tag/${tagSlug}`;
   const pageDesc = `${pageTitle}に関する記事`;
   const ogpTitle = `${pageTitle} ${siteTitlePipe} ${siteTitle}`;
   const ogpUrl = new URL(pathName, siteUrl).toString();
@@ -57,20 +61,20 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
   return metadata;
 }
 
-async function Category({ params }: Param): Promise<React.ReactElement> {
-  const categorySlug = params.slug;
-  const category = await getCategoryBySlug(categorySlug);
-  if(!category) return <p>カテゴリが存在しません。</p>
-  const posts = await getAllPostsByCategory(category.slug);
-  if (!posts || posts.length === 0) return <p>カテゴリ「{category.name}」には記事がありません。</p>;
+async function Tag({ params }: Param): Promise<React.ReactElement> {
+  const tagSlug = params.slug;
+  const tag = await getTagBySlug(tagSlug);
+  if (!tag) return <p>タグが存在しません。</p>;
+  const posts = await getAllPostsByTag(tag.slug);
+  if (!posts || posts.length === 0) return <p>タグ「{tag.name}」には記事がありません。</p>;
   const updatedPosts = await setBlurDataURLForPosts(posts);
 
   return (
     <Container>
-      <PostHeader title={category.name} subtitle="Blog Category" />
+      <PostHeader title={tag.name} subtitle="Blog Tag" />
       <Posts posts={updatedPosts} />
     </Container>
   );
 }
 
-export default Category;
+export default Tag;

@@ -1,5 +1,5 @@
 import { siteMeta } from '@/app/_const/site-meta';
-import { getAllCategories, getAllSlugs } from '@/app/_lib/apollo-client';
+import { getAllCategories, getAllPosts } from '@/app/_lib/apollo-client';
 
 const { siteUrl } = siteMeta;
 
@@ -9,7 +9,7 @@ interface Sitemap {
 }
 
 async function sitemap(): Promise<Sitemap[]> {
-  const posts = (await getAllSlugs()) ?? [];
+  const posts = (await getAllPosts()) ?? [];
   const postFields = posts.map((post) => {
     return {
       url: new URL(`/blog/${post.slug}`, siteUrl).toString(),

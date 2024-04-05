@@ -13,7 +13,7 @@ import { prevNextPost } from '@/app/_lib/prev-next-post';
 import Pagination from '@/app/_components/pagination';
 import type { Metadata } from 'next';
 import { eyecatchDefault } from '@/app/_const/site-config';
-import { getAllSlugs, getPostBySlug } from '@/app/_lib/apollo-client';
+import { getAllPosts, getPostBySlug } from '@/app/_lib/apollo-client';
 import PostTags from '@/app/_components/post-tags';
 
 const rootPathName = 'blog';
@@ -29,7 +29,7 @@ interface Param {
 }
 
 export async function generateStaticParams(): Promise<StaticParams[] | undefined> {
-  const allslugs = (await getAllSlugs()) ?? [];
+  const allslugs = (await getAllPosts()) ?? [];
   return allslugs.map(({ slug }) => {
     return { slug: slug };
   });
@@ -85,7 +85,7 @@ async function Post({ params }: Param): Promise<React.ReactElement | undefined> 
   if (!post) return <p>Post not found.</p>;
   const eyecatch = post.featuredImage?.node ?? eyecatchDefault;
   const blurDataURL = await getImageBlurData(eyecatch.mediaItemUrl);
-  const allSlugs = (await getAllSlugs()) ?? [];
+  const allSlugs = (await getAllPosts()) ?? [];
   if (!allSlugs) return <p>No posts.</p>;
   const [prevPost, nextPost] = prevNextPost(allSlugs, slug);
 

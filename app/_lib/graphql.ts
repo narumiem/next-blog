@@ -98,18 +98,6 @@ export const GET_ALLPOSTS = gql`
   }
 `;
 
-export const GET_ALLSLUGS = gql`
-  query getAllSlugs {
-    posts(where: { orderby: { field: DATE, order: DESC } }) {
-      nodes {
-        id
-        slug
-        title
-      }
-    }
-  }
-`;
-
 export const GET_ALLCATEGORIES = gql`
   query getAllCategories {
     categories(where: { orderby: COUNT, order: DESC }) {

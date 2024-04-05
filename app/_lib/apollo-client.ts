@@ -3,7 +3,6 @@ import {
   GET_ALLPOSTS,
   GET_ALLPOSTSBYCATEGORY,
   GET_ALLPOSTSBYTAG,
-  GET_ALLSLUGS,
   GET_ALLTAGS,
   GET_CATEGORYBYSLUG,
   GET_POSTBYSLUG,
@@ -56,11 +55,6 @@ export interface Post {
   tags: {
     nodes: Tag[];
   };
-}
-export interface Slug {
-  id: string;
-  slug: string;
-  title: string;
 }
 
 async function fetchGraphQLData(
@@ -116,14 +110,6 @@ export async function getTagBySlug(slug: string): Promise<Tag | null> {
 
 export async function getAllPosts(limit: number = 100): Promise<Post[]> {
   const data = await fetchGraphQLData(GET_ALLPOSTS, { limit });
-  if (!data?.posts?.nodes) {
-    throw new NotFoundError(`No posts were found.`);
-  }
-  return data.posts.nodes;
-}
-
-export async function getAllSlugs(): Promise<Slug[]> {
-  const data = await fetchGraphQLData(GET_ALLSLUGS);
   if (!data?.posts?.nodes) {
     throw new NotFoundError(`No posts were found.`);
   }

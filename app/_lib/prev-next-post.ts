@@ -1,8 +1,13 @@
-import { Slug } from '@/app/_lib/apollo-client';
+import type { Post } from '@/app/_lib/apollo-client';
 
 
+interface Slug {
+  id: string;
+  slug: string;
+  title: string;
+}
 export function prevNextPost(
-  allSlugs: Slug[],
+  allSlugs: Post[],
   currentSlug: string
 ): [Slug, Slug] {
   const numberOfPosts = allSlugs.length;

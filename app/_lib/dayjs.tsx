@@ -16,7 +16,9 @@ function ConvertDate({ dateISO }: ConvertDateProps): React.ReactElement {
   dayjs.locale(siteLocale);
 
   return (
-    <time dateTime={dateISO}>{dayjs.utc(dateISO).tz(siteTimezone).format('YYYY年MM月DD日')}</time>
+    <time dateTime={dateISO}>
+      {dayjs.utc(dateISO).tz(siteTimezone).format('YYYY年MM月DD日 HH:mm:ss Z')}
+    </time>
   );
 }
 

@@ -4,7 +4,6 @@ import PostCategories from '@/app/_components/post-categories';
 import PostHeader from '@/app/_components/post-header';
 import TwoColumn from '@/app/_components/two-column';
 import ParseHTML from '@/app/_lib/html-react-parser';
-import { getAllSlugs, getPostBySlug } from '@/app/_lib/microcms';
 import Image from 'next/image';
 import { htmlToText } from '@/app/_lib/html-to-text';
 import { siteMeta } from '@/app/_const/site-meta';
@@ -14,6 +13,7 @@ import { prevNextPost } from '@/app/_lib/prev-next-post';
 import Pagination from '@/app/_components/pagination';
 import type { Metadata } from 'next';
 import { eyecatchDefault } from '@/app/_const/site-config';
+import { getAllSlugs, getPostBySlug } from '@/app/_lib/apollo-client';
 
 const rootPathName = 'blog';
 export const dynamicParams = false;
@@ -43,10 +43,10 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
   const ogpTitle = `${post.title} ${siteTitlePipe} ${siteTitle}`;
   const pathName = `/${rootPathName}/${slug}`;
   const ogpUrl = new URL(pathName, siteUrl).toString();
-  const eyecatch = post.eyecatch ?? eyecatchDefault;
-  const ogpImage = new URL(eyecatch.url, siteUrl).toString();
-  const ogpImageWidth = eyecatch.width;
-  const ogpImageHeight = eyecatch.height;
+  const eyecatch = post.featuredImage?.node ?? eyecatchDefault;
+  const ogpImage = new URL(eyecatch.mediaItemUrl, siteUrl).toString();
+  const ogpImageWidth = eyecatch.mediaDetails.width;
+  const ogpImageHeight = eyecatch.mediaDetails.height;
 
   const metadata = {
     title: post.title,
@@ -82,8 +82,8 @@ async function Post({ params }: Param): Promise<React.ReactElement | undefined> 
   const slug = params.slug;
   const post = await getPostBySlug(slug);
   if (!post) return <p>Post not found.</p>;
-  const eyecatch = post.eyecatch ?? eyecatchDefault;
-  const blurDataURL = await getImageBlurData(eyecatch.url);
+  const eyecatch = post.featuredImage?.node ?? eyecatchDefault;
+  const blurDataURL = await getImageBlurData(eyecatch.mediaItemUrl);
   const allSlugs = (await getAllSlugs()) ?? [];
   if (!allSlugs) return <p>No posts.</p>;
   const [prevPost, nextPost] = prevNextPost(allSlugs, slug);
@@ -91,15 +91,14 @@ async function Post({ params }: Param): Promise<React.ReactElement | undefined> 
   return (
     <Container>
       <article>
-        <PostHeader title={post.title} subtitle={subtitle} publishDate={post.publishDate} />
+        <PostHeader title={post.title} subtitle={subtitle} publishDate={post.dateGmt} />
 
         <figure>
           <Image
-            key={eyecatch.url}
-            src={eyecatch.url}
-            alt=""
-            width={eyecatch.width}
-            height={eyecatch.height}
+            src={eyecatch.mediaItemUrl}
+            alt={eyecatch.altText}
+            width={eyecatch.mediaDetails.width}
+            height={eyecatch.mediaDetails.height}
             sizes="(min-width: 1152px) 1152px, 100vw"
             style={{
               width: '100%',
@@ -119,7 +118,7 @@ async function Post({ params }: Param): Promise<React.ReactElement | undefined> 
           </TwoColumn.Main>
 
           <TwoColumn.Sidebar>
-            <PostCategories categories={post.categories ?? []} />
+            <PostCategories categories={post.categories.nodes ?? []} />
           </TwoColumn.Sidebar>
         </TwoColumn>
 

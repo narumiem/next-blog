@@ -2,10 +2,10 @@ import Container from '@/app/_components/container';
 import PostHeader from '@/app/_components/post-header';
 import Posts from '@/app/_components/posts';
 import { siteMeta } from '@/app/_const/site-meta';
-import { getAllCategories, getAllPostsByCategory, getCategoryBySlug } from '@/app/_lib/microcms';
 import { setBlurDataURLForPosts } from '@/app/_lib/plaiceholder';
 import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
 import type { Metadata } from 'next';
+import { getAllCategories, getAllPostsByCategory, getCategoryBySlug } from '@/app/_lib/apollo-client';
 
 const { siteTitle, siteTitlePipe, siteUrl } = siteMeta;
 export const dynamicParams = false;
@@ -61,8 +61,8 @@ async function Category({ params }: Param): Promise<React.ReactElement> {
   const categorySlug = params.slug;
   const category = await getCategoryBySlug(categorySlug);
   if(!category) return <p>No Category.</p>
-  const posts = await getAllPostsByCategory(category.id);
-  if (!posts) return <p>「{category.name}」には記事がありません。</p>;
+  const posts = await getAllPostsByCategory(category.slug);
+  if (!posts || posts.length === 0) return <p>カテゴリ「{category.name}」には記事がありません。</p>;
   const updatedPosts = await setBlurDataURLForPosts(posts);
 
   return (

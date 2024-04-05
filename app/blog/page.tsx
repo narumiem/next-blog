@@ -2,9 +2,9 @@ import Container from '@/app/_components/container';
 import Hero from '@/app/_components/hero';
 import { siteMeta } from '@/app/_const/site-meta';
 import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
-import { getAllPosts } from '@/app/_lib/microcms';
 import Posts from '@/app/_components/posts';
 import { setBlurDataURLForPosts } from '@/app/_lib/plaiceholder';
+import { getAllPosts } from '@/app/_lib/apollo-client';
 
 const pageTitle = 'ブログ';
 const pageDesc = 'ブログの記事一覧';

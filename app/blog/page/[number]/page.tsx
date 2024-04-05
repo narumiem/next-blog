@@ -2,7 +2,7 @@ import Container from '@/app/_components/container';
 import Hero from '@/app/_components/hero';
 import Pager from '@/app/_components/pager';
 import Posts from '@/app/_components/posts';
-import { getAllPosts } from '@/app/_lib/microcms';
+import { getAllPosts } from '@/app/_lib/apollo-client';
 import { setBlurDataURLForPosts } from '@/app/_lib/plaiceholder';
 
 export const dynamicParams = false;
@@ -33,9 +33,9 @@ export async function generateStaticParams(): Promise<StaticParams[] | undefined
 
 async function Blog({ params }: Param): Promise<React.ReactElement> {
   const number = parseInt(params.number);
-  if (isNaN(number) || number <= 0) return <p>Invalid page number.</p>;
+  if (isNaN(number) || number <= 0) return <p>無効なページ番号です。</p>;
   const allPosts = await getAllPosts();
-  if (!allPosts) return <p>No Posts.</p>;
+  if (!allPosts || allPosts.length === 0) return <p>投稿がありません。</p>;
   const totalPages = Math.ceil(allPosts.length / postsPerPage);
   const startIndex = (number - 1) * postsPerPage;
   const posts = allPosts.slice(startIndex, startIndex + postsPerPage);

@@ -1,5 +1,5 @@
-import { getAllCategories, getAllSlugs } from '@/app/_lib/microcms';
 import { siteMeta } from '@/app/_const/site-meta';
+import { getAllCategories, getAllSlugs } from '@/app/_lib/apollo-client';
 
 const { siteUrl } = siteMeta;
 
@@ -9,7 +9,6 @@ interface Sitemap {
 }
 
 async function sitemap(): Promise<Sitemap[]> {
-  // postが100件までしか取得されない？→microCMSの制限によるもの→microcms.tsの修正が必要
   const posts = (await getAllSlugs()) ?? [];
   const postFields = posts.map((post) => {
     return {

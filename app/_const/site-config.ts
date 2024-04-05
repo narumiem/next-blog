@@ -1,4 +1,5 @@
-import type { Eyecatch } from '@/app/_lib/microcms';
+import { Eyecatch } from '@/app/_lib/apollo-client';
+
 
 interface SiteConfig {
   siteUrl: string;
@@ -55,8 +56,12 @@ export const siteConfig: SiteConfig = {
 };
 
 export const eyecatchDefault: Eyecatch = {
-  url: '/images/eyecatch-default.jpg',
-  width: 1920,
-  height: 1280,
+  id: 'default',
+  mediaItemUrl: '/images/eyecatch-default.jpg',
+  altText: '',
+  mediaDetails: {
+    width: 1920,
+    height: 1280,
+  },
   blurDataURL: '',
 };

@@ -3,7 +3,8 @@ import Hero from '@/app/_components/hero';
 import Pagination from '@/app/_components/pagination';
 import Posts from '@/app/_components/posts';
 import { siteConfig } from '@/app/_const/site-config';
-import { getAllPosts } from '@/app/_lib/microcms';
+import { getAllPosts } from '@/app/_lib/apollo-client';
+
 import { setBlurDataURLForPosts } from '@/app/_lib/plaiceholder';
 
 async function Home(): Promise<React.ReactElement> {

@@ -1,8 +1,8 @@
 import styles from '@/app/_components/post-categories.module.css';
+import { Category } from '@/app/_lib/apollo-client';
 import { faFolderOpen } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
-import type { Category } from '@/app/_lib/microcms';
 
 interface PostCategoriesProps {
   categories?: Category[];
@@ -17,8 +17,8 @@ function PostCategories({ categories }: PostCategoriesProps): React.ReactElement
       </h3>
       <ul className={styles.list}>
         {categories ? (
-          categories.map(({ name, slug }) => (
-            <li key={slug}>
+          categories.map(({ id,name, slug }) => (
+            <li key={id}>
               <Link href={`/blog/category/${slug}`}>{name}</Link>
             </li>
           ))

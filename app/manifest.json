@@ -1,0 +1,14 @@
+{
+    "name": "Next Blog - Next.jsで構築するBlog Portfolio",
+    "short_name": "Next Blog",
+    "icons": [
+        {
+            "src": "/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#db8b59",
+    "background_color": "#db8b59",
+    "display": "standalone"
+}

@@ -19,7 +19,7 @@ function Social({ iconSize = 'initial' }: SocialProps): React.ReactElement {
       url: `https://facebook.com/${facebook}`,
       icon: faFacebookF,
     },
-    { name: github, url: `https://github.com/${github}`, icon: faGithub },
+    { name: 'Github', url: `https://github.com/${github}`, icon: faGithub },
   ];
 
   return (

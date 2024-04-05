@@ -1,8 +1,5 @@
-interface Slug {
-  id: string;
-  title: string;
-  slug: string;
-}
+import { Slug } from '@/app/_lib/apollo-client';
+
 
 export function prevNextPost(
   allSlugs: Slug[],
@@ -12,10 +9,10 @@ export function prevNextPost(
   const index = allSlugs.findIndex(({ slug }) => slug === currentSlug);
   const prevPost =
     index + 1 === numberOfPosts
-      ? { id: '', title: '', slug: '' }
+      ? { id: '', slug: '', title: '' }
       : allSlugs[index + 1];
   const nextPost =
-    index === 0 ? { id: '', title: '', slug: '' } : allSlugs[index - 1];
+    index === 0 ? { id: '', slug: '', title: '' } : allSlugs[index - 1];
 
   return [prevPost, nextPost];
 }

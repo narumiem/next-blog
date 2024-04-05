@@ -1,7 +1,7 @@
 import styles from '@/app/_components/posts.module.css';
+import type { Post } from '@/app/_lib/apollo-client';
 import Image from 'next/image';
 import Link from 'next/link';
-import type { Post } from '@/app/_lib/microcms';
 
 interface PostsProps {
   posts?: Post[];
@@ -10,19 +10,18 @@ interface PostsProps {
 function Posts({ posts }: PostsProps): React.ReactElement {
   return (
     <div className={styles.gridContainer}>
-      {posts &&
-        posts.map(({ title, slug, eyecatch }) => (
-          <article key={slug} className={styles.post}>
+      {posts?.map(({ id,title, slug, featuredImage }) => (
+          <article key={id} className={styles.post}>
             <Link href={`/blog/${slug}`}>
               <figure>
-                {eyecatch && eyecatch.url && eyecatch.blurDataURL ? (
+                {featuredImage?.node?.mediaItemUrl && featuredImage.node.blurDataURL ? (
                   <Image
-                    src={eyecatch.url}
-                    alt=""
+                    src={featuredImage.node.mediaItemUrl}
+                    alt={featuredImage.node.altText ?? ''}
                     fill
                     sizes="(min-width: 1152px) 576px, 50vw"
                     placeholder="blur"
-                    blurDataURL={eyecatch.blurDataURL}
+                    blurDataURL={featuredImage.node.blurDataURL}
                   />
                 ) : (
                   <span>No Image</span>

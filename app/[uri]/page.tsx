@@ -19,12 +19,14 @@ interface StaticParams {
 interface Param {
   params: {
     uri: string;
-  }
+  };
 }
 
 export async function generateStaticParams(): Promise<StaticParams[]> {
   const allUris = (await getAllPages()) ?? [];
-  return allUris.map(({ uri }) => ({ uri: uri }));
+  return allUris.map(({ uri }) => {
+    return { uri: uri.replace(/^\/|\/$/g, '') };
+  });
 }
 
 export async function generateMetadata({ params }: Param): Promise<Metadata | undefined> {
@@ -34,7 +36,7 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
 
   const description = htmlToText(page.content || '');
   const ogpTitle = `${page.title} ${siteTitlePipe} ${siteTitle}`;
-  const ogpUrl = new URL(page.uri, siteUrl).toString();
+  const ogpUrl = new URL(page.slug, siteUrl).toString();
   const eyecatch = page.featuredImage?.node ?? eyecatchDefault;
   const ogpImage = new URL(eyecatch.mediaItemUrl, siteUrl).toString();
 

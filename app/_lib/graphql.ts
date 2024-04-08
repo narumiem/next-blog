@@ -208,24 +208,26 @@ export const GET_ALL_POSTS_BY_TAG = gql`
   }
 `;
 
-export const GET_PAGE_BY_URI = gql`
-  query getPageByUri($uri: ID = "") {
-    page(id: $uri, idType: URI) {
-      id
-      slug
-      uri
-      title
-      dateGmt
-      modifiedGmt
-      content
-      featuredImage {
-        node {
-          id
-          mediaItemUrl
-          altText
-          mediaDetails {
-            width
-            height
+export const GET_PAGE_BY_SLUG = gql`
+  query getPageBySlug($slug: String = "") {
+    pages(where: { name: $slug }) {
+      nodes {
+        id
+        slug
+        uri
+        title
+        dateGmt
+        modifiedGmt
+        content
+        featuredImage {
+          node {
+            id
+            mediaItemUrl
+            altText
+            mediaDetails {
+              width
+              height
+            }
           }
         }
       }

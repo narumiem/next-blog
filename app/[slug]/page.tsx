@@ -6,7 +6,7 @@ import TwoColumn from '@/app/_components/two-column';
 import Image from 'next/image';
 import { siteMeta } from '@/app/_const/site-meta';
 import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
-import { getAllPages, getPageByUri } from '@/app/_lib/apollo-client';
+import { getAllPages, getPageBySlug } from '@/app/_lib/apollo-client';
 import { getImageBlurData } from '@/app/_lib/plaiceholder';
 import ParseHTML from '@/app/_lib/html-react-parser';
 import { Metadata } from 'next';
@@ -14,24 +14,24 @@ import { htmlToText } from '@/app/_lib/html-to-text';
 import { eyecatchDefault } from '@/app/_const/site-config';
 
 interface StaticParams {
-  uri: string;
+  slug: string;
 }
 interface Param {
   params: {
-    uri: string;
+    slug: string;
   };
 }
 
 export async function generateStaticParams(): Promise<StaticParams[]> {
-  const allUris = (await getAllPages()) ?? [];
-  return allUris.map(({ uri }) => {
-    return { uri: uri.replace(/^\/|\/$/g, '') };
+  const allIds = (await getAllPages()) ?? [];
+  return allIds.map(({ slug }) => {
+    return { slug: slug };
   });
 }
 
 export async function generateMetadata({ params }: Param): Promise<Metadata | undefined> {
   const { siteTitle, siteTitlePipe, siteUrl } = siteMeta;
-  const page = await getPageByUri(params.uri);
+  const page = await getPageBySlug(params.slug);
   if (!page) return undefined;
 
   const description = htmlToText(page.content || '');
@@ -70,8 +70,8 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
 }
 
 async function Page({ params }: Param): Promise<React.ReactElement> {
-  const page = await getPageByUri(params.uri);
-  if (!page) return <p>ページ「{params.uri}」が存在しません。</p>;
+  const page = await getPageBySlug(params.slug);
+  if (!page) return <p>ページ「{params.slug}」が存在しません。</p>;
 
   const isEyecatch = Boolean(page.featuredImage);
   const eyecatch = page.featuredImage?.node ?? eyecatchDefault;

@@ -6,7 +6,7 @@ import {
   GET_ALL_POSTS_BY_TAG,
   GET_ALL_TAGS,
   GET_CATEGORY_BY_SLUG,
-  GET_PAGE_BY_URI,
+  GET_PAGE_BY_SLUG,
   GET_POST_BY_SLUG,
   GET_TAG_BY_SLUG,
 } from '@/app/_lib/graphql';
@@ -171,12 +171,12 @@ export async function getAllPostsByTag(slug: string): Promise<Post[]> {
   return data.tag.posts.nodes;
 }
 
-export async function getPageByUri(uri: string): Promise<Page> {
-  const data = await fetchGraphQLData(GET_PAGE_BY_URI, { uri });
-  if (!data?.page) {
-    throw new NotFoundError(`Page with uri "${uri}" not found.`);
+export async function getPageBySlug(slug: string): Promise<Page> {
+  const data = await fetchGraphQLData(GET_PAGE_BY_SLUG, { slug });
+  if (!data?.pages?.nodes) {
+    throw new NotFoundError(`Page with slug "${slug}" not found.`);
   }
-  return data.page;
+  return data.pages.nodes[0];
 }
 
 export async function getAllPages(): Promise<Page[]> {

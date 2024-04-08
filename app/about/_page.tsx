@@ -6,7 +6,7 @@ import TwoColumn from '@/app/_components/two-column';
 import Image from 'next/image';
 import { siteMeta } from '@/app/_const/site-meta';
 import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
-import { getPageByUri } from '@/app/_lib/apollo-client';
+import { getPageBySlug } from '@/app/_lib/apollo-client';
 import { getImageBlurData } from '@/app/_lib/plaiceholder';
 import ParseHTML from '@/app/_lib/html-react-parser';
 
@@ -52,7 +52,7 @@ export const metadata = {
 };
 
 async function About(): Promise<React.ReactElement> {
-  const page = await getPageByUri('/about/');
+  const page = await getPageBySlug('/about/');
   if (!page) return <p>Page not found.</p>;
   const title = page.title;
   const content = page.content;

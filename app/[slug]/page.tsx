@@ -24,9 +24,7 @@ interface Param {
 
 export async function generateStaticParams(): Promise<StaticParams[]> {
   const allIds = (await getAllPages()) ?? [];
-  return allIds.map(({ slug }) => {
-    return { slug: slug };
-  });
+  return allIds.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Param): Promise<Metadata | undefined> {
@@ -66,6 +64,7 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
       images: [ogpImage],
     },
   };
+  
   return metadata;
 }
 
@@ -113,5 +112,4 @@ async function Page({ params }: Param): Promise<React.ReactElement> {
     </Container>
   );
 }
-
 export default Page;

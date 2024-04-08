@@ -59,11 +59,24 @@ export const versatileBlurData: string =
 
 export const eyecatchDefault: Eyecatch = {
   id: 'default',
-  mediaItemUrl: '/images/eyecatch-default.jpg',
-  altText: '',
+  mediaItemUrl: '/images/eyecatch-default.webp',
+  altText: 'テーブルに置かれたラップトップPCとコーヒーと観葉植物',
   mediaDetails: {
-    width: 1920,
-    height: 1280,
+    width: 1024,
+    height: 1024,
   },
   blurDataURL: versatileBlurData,
 };
+
+export const eyecatch404: Eyecatch = {
+  id: '404error',
+  mediaItemUrl: '/images/404.webp',
+  altText: '404と書かれたラップトップPCと黒いライトスタンドの置かれたテーブル',
+  mediaDetails: {
+    width: 1024,
+    height: 1024,
+  },
+  blurDataURL: versatileBlurData,
+};
+
+export const blogPath: string = 'blog';

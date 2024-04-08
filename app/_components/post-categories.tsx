@@ -1,4 +1,5 @@
 import styles from '@/app/_components/post-categories.module.css';
+import { blogPath } from '@/app/_const/site-config';
 import type { Category } from '@/app/_lib/apollo-client';
 import { faFolderOpen } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +16,7 @@ function PostCategories({ categories }: PostCategoriesProps): React.ReactElement
         {categories ? (
           categories.map(({ id, name, slug }) => (
             <li key={id}>
-              <Link href={`/blog/category/${slug}`}>
+              <Link href={`/${blogPath}/category/${slug}`}>
                 <FontAwesomeIcon icon={faFolderOpen} />
                 <span className="sr-only">Categories</span>
                 <span>{name}</span>

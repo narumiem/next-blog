@@ -5,14 +5,14 @@ import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
 import Posts from '@/app/_components/posts';
 import { setBlurDataURLForPosts } from '@/app/_lib/plaiceholder';
 import { getAllPosts } from '@/app/_lib/apollo-client';
+import { blogPath } from '@/app/_const/site-config';
 
 const pageTitle = 'ブログ';
 const pageDesc = 'ブログの記事一覧';
-const pathName = '/blog';
 
 const { siteTitle, siteTitlePipe, siteUrl } = siteMeta;
 const ogpTitle = `${pageTitle} ${siteTitlePipe} ${siteTitle}`;
-const ogpUrl = new URL(pathName, siteUrl).toString();
+const ogpUrl = new URL(`/${blogPath}`, siteUrl).toString();
 
 export const metadata = {
   title: pageTitle,

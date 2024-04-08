@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import styles from '@/app/_components/nav.module.css';
 import { useState } from 'react';
+import { blogPath } from '@/app/_const/site-config';
 
 function Nav(): React.ReactElement {
   const [navIsOpen, setNavIsOpen] = useState(false);
@@ -42,7 +43,7 @@ function Nav(): React.ReactElement {
           </Link>
         </li>
         <li>
-          <Link href="/blog/page/1" onClick={closeNav}>
+          <Link href={`/${blogPath}/page/1`} onClick={closeNav}>
             Blog
           </Link>
         </li>

@@ -1,4 +1,5 @@
 import styles from '@/app/_components/post-tags.module.css';
+import { blogPath } from '@/app/_const/site-config';
 import type { Tag } from '@/app/_lib/apollo-client';
 import { faTag } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,7 +16,7 @@ function PostTags({ tags }: PostTagsProps): React.ReactElement {
         {tags ? (
           tags.map(({ id, name, slug }) => (
             <li key={id}>
-              <Link href={`/blog/tag/${slug}`}>
+              <Link href={`/${blogPath}/tag/${slug}`}>
                 <FontAwesomeIcon icon={faTag} />
                 <span className="sr-only">Tags</span>
                 <span>{name}</span>

@@ -5,7 +5,6 @@ interface PostBodyProps {
 }
 
 function PostBody({ children }: PostBodyProps): React.ReactElement {
-  return <div className={styles.stack}>{children}</div>;
+  return <div className={`${styles.postBody} ${styles.stack}`}>{children}</div>;
 }
-
 export default PostBody;

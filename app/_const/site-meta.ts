@@ -1,6 +1,5 @@
 import { siteConfig } from '@/app/_const/site-config';
 
-
 const {
   siteTitle,
   siteTitlePipe,
@@ -46,11 +45,11 @@ export const siteMeta: SiteMeta = {
   siteRobotsIndex: siteRobotsIndex,
   siteRobotsFollow: siteRobotsFollow,
   siteRobotsNocache: siteRobotsNocache,
-  siteOgpImage: `${siteConfig.siteUrl}/images/opengraph-image.jpg`,
+  siteOgpImage: `${siteConfig.siteUrl}/images/ogp-image.webp`,
   siteOgpImageWidth: 1200,
   siteOgpImageHeight: 630,
   siteTwitterCard: 'summary_large_image',
-  siteTwitterImage: `${siteConfig.siteUrl}/images/twitter-image.jpg`,
+  siteTwitterImage: `${siteConfig.siteUrl}/images/twitter-image.webp`,
 };
 
 

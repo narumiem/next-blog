@@ -2,9 +2,8 @@ import Container from '@/app/_components/container';
 import Hero from '@/app/_components/hero';
 import Pagination from '@/app/_components/pagination';
 import Posts from '@/app/_components/posts';
-import { siteConfig } from '@/app/_const/site-config';
+import { blogPath, siteConfig } from '@/app/_const/site-config';
 import { getAllPosts } from '@/app/_lib/apollo-client';
-
 import { setBlurDataURLForPosts } from '@/app/_lib/plaiceholder';
 
 async function Home(): Promise<React.ReactElement> {
@@ -17,7 +16,7 @@ async function Home(): Promise<React.ReactElement> {
     <Container>
       <Hero title={siteTitle} subtitle={siteDescription} imageOn />
       <Posts posts={updatedPosts} />
-      <Pagination nextUrl="/blog/page/1" nextText="More Posts" />
+      <Pagination nextUrl={`/${blogPath}/page/1`} nextText="More Posts" />
     </Container>
   );
 }

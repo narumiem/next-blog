@@ -1,5 +1,5 @@
 import styles from '@/app/_components/hero.module.css';
-import { versatileBlurData } from '@/app/_const/site-config';
+import { siteConfig, versatileBlurData } from '@/app/_const/site-config';
 import Image from 'next/image';
 
 interface HeroProps {
@@ -18,7 +18,7 @@ function Hero({ title, subtitle, imageOn = false }: HeroProps): React.ReactEleme
               src="/images/site-logo.webp"
               width={720}
               height={640}
-              alt="Next Blog"
+              alt={siteConfig.siteTitle}
               sizes="(min-width: 1152px) 576px, (min-width: 768px) 50vw, 100vw"
               style={{
                 maxWidth: '100%',

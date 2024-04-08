@@ -7,9 +7,6 @@ import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
 import type { Metadata } from 'next';
 import { getAllCategories, getAllPostsByCategory, getCategoryBySlug } from '@/app/_lib/apollo-client';
 
-const { siteTitle, siteTitlePipe, siteUrl } = siteMeta;
-export const dynamicParams = false;
-
 interface StaticParams {
   slug: string;
 }
@@ -19,25 +16,24 @@ interface Param {
   };
 }
 
+export const dynamicParams = false;
+
 export async function generateStaticParams(): Promise<StaticParams[] | undefined> {
   const allCategories = (await getAllCategories()) ?? [];
-  return allCategories.map(({ slug }) => {
-    return { slug: slug };
-  });
+  return allCategories.map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Param): Promise<Metadata | undefined> {
-  const categorySlug = params.slug;
-  const category = await getCategoryBySlug(categorySlug);
+  const { siteTitle, siteTitlePipe, siteUrl } = siteMeta;
+  const category = await getCategoryBySlug(params.slug);
   if (!category) return undefined;
-  const pageTitle = category.name;
-  const pathName = `/category/${categorySlug}`;
-  const pageDesc = `${pageTitle}に関する記事`;
-  const ogpTitle = `${pageTitle} ${siteTitlePipe} ${siteTitle}`;
+  const pathName = `/category/${params.slug}`;
+  const pageDesc = `${category.name}に関する記事`;
+  const ogpTitle = `${category.name} ${siteTitlePipe} ${siteTitle}`;
   const ogpUrl = new URL(pathName, siteUrl).toString();
 
   const metadata = {
-    title: pageTitle,
+    title: category.name,
     alternates: {
       canonical: ogpUrl,
     },
@@ -54,12 +50,12 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
       description: pageDesc,
     },
   };
+
   return metadata;
 }
 
 async function Category({ params }: Param): Promise<React.ReactElement> {
-  const categorySlug = params.slug;
-  const category = await getCategoryBySlug(categorySlug);
+  const category = await getCategoryBySlug(params.slug);
   if(!category) return <p>カテゴリが存在しません。</p>
   const posts = await getAllPostsByCategory(category.slug);
   if (!posts || posts.length === 0) return <p>カテゴリ「{category.name}」には記事がありません。</p>;
@@ -67,7 +63,7 @@ async function Category({ params }: Param): Promise<React.ReactElement> {
 
   return (
     <Container>
-      <PostHeader title={category.name} subtitle="Blog Category" />
+      <PostHeader title={category.name} subtitle="Blog カテゴリー" />
       <Posts posts={updatedPosts} />
     </Container>
   );

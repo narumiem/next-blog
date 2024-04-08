@@ -28,7 +28,7 @@ interface Param {
   };
 }
 
-export async function generateStaticParams(): Promise<StaticParams[] | undefined> {
+export async function generateStaticParams(): Promise<StaticParams[]> {
   const allslugs = (await getAllPosts()) ?? [];
   return allslugs.map(({ slug }) => {
     return { slug: slug };

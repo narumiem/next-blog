@@ -1,12 +1,14 @@
 import {
-  GET_ALLCATEGORIES,
-  GET_ALLPOSTS,
-  GET_ALLPOSTSBYCATEGORY,
-  GET_ALLPOSTSBYTAG,
-  GET_ALLTAGS,
-  GET_CATEGORYBYSLUG,
-  GET_POSTBYSLUG,
-  GET_TAGBYSLUG,
+  GET_ALL_CATEGORIES,
+  GET_ALL_PAGES,
+  GET_ALL_POSTS,
+  GET_ALL_POSTS_BY_CATEGORY,
+  GET_ALL_POSTS_BY_TAG,
+  GET_ALL_TAGS,
+  GET_CATEGORY_BY_SLUG,
+  GET_PAGE_BY_URI,
+  GET_POST_BY_SLUG,
+  GET_TAG_BY_SLUG,
 } from '@/app/_lib/graphql';
 import { ApolloClient, InMemoryCache, HttpLink, DocumentNode } from '@apollo/client';
 
@@ -56,6 +58,26 @@ export interface Post {
     nodes: Tag[];
   };
 }
+export interface Page {
+  id: string;
+  slug: string;
+  uri: string;
+  title: string;
+  dataGmt: string;
+  modifiedGmt: string;
+  content: string;
+  featuredImage: {
+    node: {
+      id: string;
+      mediaItemUrl: string;
+      altText: string;
+      mediaDetails: {
+        width: number;
+        height: number;
+      };
+    };
+  };
+}
 
 async function fetchGraphQLData(
   query: DocumentNode,
@@ -65,6 +87,7 @@ async function fetchGraphQLData(
     const { data } = await client.query({
       query,
       variables,
+      // fetchPolicy: 'no-cache', // Apollo Client のキャッシュを無効にする
     });
     return data;
   } catch (error) {
@@ -85,7 +108,7 @@ class NotFoundError extends Error {
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
-  const data = await fetchGraphQLData(GET_POSTBYSLUG, { slug });
+  const data = await fetchGraphQLData(GET_POST_BY_SLUG, { slug });
   if (!data?.post) {
     throw new NotFoundError(`Post with slug "${slug}" not found.`);
   }
@@ -93,7 +116,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
 }
 
 export async function getCategoryBySlug(slug: string): Promise<Category | null> {
-  const data = await fetchGraphQLData(GET_CATEGORYBYSLUG, { slug });
+  const data = await fetchGraphQLData(GET_CATEGORY_BY_SLUG, { slug });
   if (!data?.category) {
     throw new NotFoundError(`Category with slug "${slug}" not found.`);
   }
@@ -101,7 +124,7 @@ export async function getCategoryBySlug(slug: string): Promise<Category | null> 
 }
 
 export async function getTagBySlug(slug: string): Promise<Tag | null> {
-  const data = await fetchGraphQLData(GET_TAGBYSLUG, { slug });
+  const data = await fetchGraphQLData(GET_TAG_BY_SLUG, { slug });
   if (!data?.tag) {
     throw new NotFoundError(`Tag with slug "${slug}" not found.`);
   }
@@ -109,7 +132,7 @@ export async function getTagBySlug(slug: string): Promise<Tag | null> {
 }
 
 export async function getAllPosts(limit: number = 100): Promise<Post[]> {
-  const data = await fetchGraphQLData(GET_ALLPOSTS, { limit });
+  const data = await fetchGraphQLData(GET_ALL_POSTS, { limit });
   if (!data?.posts?.nodes) {
     throw new NotFoundError(`No posts were found.`);
   }
@@ -117,7 +140,7 @@ export async function getAllPosts(limit: number = 100): Promise<Post[]> {
 }
 
 export async function getAllCategories(): Promise<Category[]> {
-  const data = await fetchGraphQLData(GET_ALLCATEGORIES);
+  const data = await fetchGraphQLData(GET_ALL_CATEGORIES);
   if (!data?.categories?.nodes) {
     throw new NotFoundError(`No categories were found.`);
   }
@@ -125,7 +148,7 @@ export async function getAllCategories(): Promise<Category[]> {
 }
 
 export async function getAllTags(): Promise<Tag[]> {
-  const data = await fetchGraphQLData(GET_ALLTAGS);
+  const data = await fetchGraphQLData(GET_ALL_TAGS);
   if (!data?.tags?.nodes) {
     throw new NotFoundError(`No tags were found.`);
   }
@@ -133,7 +156,7 @@ export async function getAllTags(): Promise<Tag[]> {
 }
 
 export async function getAllPostsByCategory(slug: string): Promise<Post[]> {
-  const data = await fetchGraphQLData(GET_ALLPOSTSBYCATEGORY, { slug });
+  const data = await fetchGraphQLData(GET_ALL_POSTS_BY_CATEGORY, { slug });
   if (!data?.category?.posts?.nodes) {
     throw new NotFoundError(`No posts found in the "${slug}" category.`);
   }
@@ -141,9 +164,25 @@ export async function getAllPostsByCategory(slug: string): Promise<Post[]> {
 }
 
 export async function getAllPostsByTag(slug: string): Promise<Post[]> {
-  const data = await fetchGraphQLData(GET_ALLPOSTSBYTAG, { slug });
+  const data = await fetchGraphQLData(GET_ALL_POSTS_BY_TAG, { slug });
   if (!data?.tag?.posts?.nodes) {
     throw new NotFoundError(`No posts found in the "${slug}" tag.`);
   }
   return data.tag.posts.nodes;
+}
+
+export async function getPageByUri(uri: string): Promise<Page> {
+  const data = await fetchGraphQLData(GET_PAGE_BY_URI, { uri });
+  if (!data?.page) {
+    throw new NotFoundError(`Page with uri "${uri}" not found.`);
+  }
+  return data.page;
+}
+
+export async function getAllPages(): Promise<Page[]> {
+  const data = await fetchGraphQLData(GET_ALL_PAGES)
+  if (!data?.pages?.nodes) {
+    throw new NotFoundError(`No Pages were found.`);
+  }
+  return data.pages.nodes;
 }

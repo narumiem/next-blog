@@ -1,18 +1,20 @@
-import parse, { Element, HTMLReactParserOptions } from 'html-react-parser';
+import Accordion from '@/app/_components/accordion';
+import { versatileBlurData } from '@/app/_const/site-config';
+import parse, { DOMNode, Element, HTMLReactParserOptions, domToReact } from 'html-react-parser';
 import Image from 'next/image';
 
 export const options: HTMLReactParserOptions = {
   replace: (domNode) => {
     if (!(domNode instanceof Element)) return;
-    if (domNode.name === 'script') {
+    if (domNode.type === 'tag' && domNode.name === 'script') {
       // return <span>script</span>;
       return <></>;
     }
-    if (domNode.attribs && domNode.attribs.class && domNode.attribs.class.includes('ad-area')) {
+    if (domNode.type === 'tag' && domNode.attribs?.class?.includes('ad-area')) {
       // return <span>ad-area</span>;
       return <></>;
     }
-    if (domNode.name === 'img') {
+    if (domNode.type === 'tag' && domNode.name === 'img') {
       const { src, alt, width, height } = domNode.attribs;
       return (
         <Image
@@ -23,8 +25,16 @@ export const options: HTMLReactParserOptions = {
           sizes="(min-width: 768px) 768px, 100vw"
           style={{ width: '100%', height: 'auto' }}
           placeholder="blur"
-          blurDataURL={src}
+          blurDataURL={versatileBlurData}
         />
+      );
+    }
+    if (domNode.type === 'tag' && domNode.name === 'accordion') {
+      const { attribs } = domNode;
+      return (
+        <Accordion heading={attribs.heading}>
+          {domToReact(domNode.children as unknown as DOMNode[])}
+        </Accordion>
       );
     }
   },

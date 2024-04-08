@@ -1,6 +1,5 @@
 import { Eyecatch } from '@/app/_lib/apollo-client';
 
-
 interface SiteConfig {
   siteUrl: string;
   siteTitle: string;
@@ -55,6 +54,9 @@ export const siteConfig: SiteConfig = {
   },
 };
 
+export const versatileBlurData: string =
+  'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/B8AAukB9LFu0T8AAAAASUVORK5CYII=';
+
 export const eyecatchDefault: Eyecatch = {
   id: 'default',
   mediaItemUrl: '/images/eyecatch-default.jpg',
@@ -63,5 +65,5 @@ export const eyecatchDefault: Eyecatch = {
     width: 1920,
     height: 1280,
   },
-  blurDataURL: '',
+  blurDataURL: versatileBlurData,
 };

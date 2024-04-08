@@ -1,17 +1,14 @@
 import styles from '@/app/_components/hero.module.css';
+import { versatileBlurData } from '@/app/_const/site-config';
 import Image from 'next/image';
 
 interface HeroProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   imageOn?: boolean;
 }
 
-function Hero({
-  title,
-  subtitle,
-  imageOn = false,
-}: HeroProps): React.ReactElement {
+function Hero({ title, subtitle, imageOn = false }: HeroProps): React.ReactElement {
   return (
     <div className={styles.flexContainer}>
       {imageOn && (
@@ -29,14 +26,14 @@ function Hero({
               }}
               priority
               placeholder="blur"
-              blurDataURL="/images/site-logo.webp"
+              blurDataURL={versatileBlurData}
             />
           </figure>
         </h1>
       )}
       <div className={styles.text}>
         {!imageOn && <h1 className={styles.title}>{title}</h1>}
-        <p className={styles.subtitle}>{subtitle}</p>
+        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
       </div>
     </div>
   );

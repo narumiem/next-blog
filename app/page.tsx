@@ -1,4 +1,3 @@
-import Container from '@/app/_components/container';
 import Hero from '@/app/_components/hero';
 import Pagination from '@/app/_components/pagination';
 import Posts from '@/app/_components/posts';
@@ -13,11 +12,11 @@ async function Home(): Promise<React.ReactElement> {
   const updatedPosts = await setBlurDataURLForPosts(posts);
 
   return (
-    <Container>
+    <>
       <Hero title={siteTitle} subtitle={siteDescription} imageOn />
       <Posts posts={updatedPosts} />
       <Pagination nextUrl={`/${blogPath}/page/1`} nextText="More Posts" />
-    </Container>
+    </>
   );
 }
 

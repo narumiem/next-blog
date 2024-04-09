@@ -237,7 +237,7 @@ export const GET_PAGE_BY_SLUG = gql`
 
 export const GET_ALL_PAGES = gql`
   query getAllPages {
-    pages {
+    pages(where: { orderby: { field: MENU_ORDER, order: ASC } }) {
       nodes {
         id
         slug

@@ -1,3 +1,16 @@
 .flexContainer {
   composes: spaceBetween from '@/app/_components/_utils.module.css';
 }
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-white);
+}
+
+@media (min-width: 768px) {
+  .header {
+    border-bottom: 1px solid var(--color-gray-10);
+    box-sizing: border-box;
+  }
+}

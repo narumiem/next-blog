@@ -16,10 +16,41 @@ const httpLink = new HttpLink({
   uri: process.env.WORDPRESS_GRAPHQL_ENDPOINT,
 });
 
-const client = new ApolloClient({
+export const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
 });
+
+async function fetchGraphQLData(
+  query: DocumentNode,
+  variables: Record<string, string | number> = {}
+) {
+  try {
+    const { data } = await client.query({
+      query,
+      variables,
+      // Apollo Client のキャッシュを無効にする
+      // fetchPolicy: 'no-cache',
+    });
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(`GraphQL fetch failed: ${error.message}`);
+      throw new Error(`GraphQL fetch failed: ${error.message}`);
+    }
+    console.error(`GraphQL fetch failed with unknown error.`);
+    throw new Error(`GraphQL fetch failed with unknown error.`);
+  }
+}
+
+
+
+class NotFoundError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'NotFoundError';
+  }
+}
 
 export interface Eyecatch {
   id: string;
@@ -77,34 +108,6 @@ export interface Page {
       };
     };
   };
-}
-
-async function fetchGraphQLData(
-  query: DocumentNode,
-  variables: Record<string, string | number> = {}
-) {
-  try {
-    const { data } = await client.query({
-      query,
-      variables,
-      // fetchPolicy: 'no-cache', // Apollo Client のキャッシュを無効にする
-    });
-    return data;
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(`GraphQL fetch failed: ${error.message}`);
-      throw new Error(`GraphQL fetch failed: ${error.message}`);
-    }
-    console.error(`GraphQL fetch failed with unknown error.`);
-    throw new Error(`GraphQL fetch failed with unknown error.`);
-  }
-}
-
-class NotFoundError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = 'NotFoundError';
-  }
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {

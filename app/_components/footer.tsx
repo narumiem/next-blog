@@ -5,7 +5,7 @@ import Social from '@/app/_components/social';
 
 function Footer(): React.ReactElement {
   return (
-    <footer className={styles.wrapper}>
+    <footer className={styles.footer}>
       <Container>
         <div className={styles.flexContaier}>
           <Logo />

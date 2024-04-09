@@ -1,4 +1,3 @@
-import Container from '@/app/_components/container';
 import Hero from '@/app/_components/hero';
 import Pager from '@/app/_components/pager';
 import Posts from '@/app/_components/posts';
@@ -78,11 +77,11 @@ async function Blog({ params }: Param): Promise<React.ReactElement> {
   const updatedPosts = await setBlurDataURLForPosts(posts);
 
   return (
-    <Container>
+    <>
       <Hero title="blog" subtitle="recent posts with pager" />
       <Posts posts={updatedPosts} />
       <Pager current={number} total={totalPages} />
-    </Container>
+    </>
   );
 }
 

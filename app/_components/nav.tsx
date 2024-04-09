@@ -4,9 +4,17 @@ import styles from '@/app/_components/nav.module.css';
 import { useState } from 'react';
 import { blogPath } from '@/app/_const/site-config';
 
-function Nav(): React.ReactElement {
-  const [navIsOpen, setNavIsOpen] = useState(false);
+export interface PageList {
+  id: string;
+  slug: string;
+  title: string;
+}
+interface NavProps {
+  pageList: PageList[];
+}
 
+function Nav({ pageList }: NavProps): React.ReactElement {
+  const [navIsOpen, setNavIsOpen] = useState(false);
   const toggleNav = () => {
     setNavIsOpen((prev: boolean) => !prev);
   };
@@ -16,30 +24,14 @@ function Nav(): React.ReactElement {
 
   return (
     <nav className={navIsOpen ? styles.open : styles.close}>
-      {navIsOpen && (
-        <style jsx global>{`
-          @media (max-width: 768px) {
-            body {
-              overflow: hidden;
-              position: fixed;
-              width: 100%;
-            }
-          }
-        `}</style>
-      )}
       <button className={styles.button} onClick={toggleNav}>
         <span className={styles.bar}></span>
         <span className="sr-only">MENU</span>
       </button>
-      <ul className={styles.list} onClick={closeNav}>
+      <ul className={styles.list}>
         <li>
           <Link href="/" onClick={closeNav}>
             Home
-          </Link>
-        </li>
-        <li>
-          <Link href="/about" onClick={closeNav}>
-            About
           </Link>
         </li>
         <li>
@@ -47,6 +39,14 @@ function Nav(): React.ReactElement {
             Blog
           </Link>
         </li>
+        {pageList &&
+          pageList.map(({ id, slug, title }) => (
+            <li key={id}>
+              <Link href={`/${slug}`} onClick={closeNav}>
+                {title}
+              </Link>
+            </li>
+          ))}
       </ul>
     </nav>
   );

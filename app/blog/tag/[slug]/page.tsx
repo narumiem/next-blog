@@ -1,4 +1,3 @@
-import Container from '@/app/_components/container';
 import PostHeader from '@/app/_components/post-header';
 import Posts from '@/app/_components/posts';
 import { siteMeta } from '@/app/_const/site-meta';
@@ -62,10 +61,10 @@ async function Tag({ params }: Param): Promise<React.ReactElement> {
   const updatedPosts = await setBlurDataURLForPosts(posts);
 
   return (
-    <Container>
+    <>
       <PostHeader title={tag.name} subtitle="Blog Tag" />
       <Posts posts={updatedPosts} />
-    </Container>
+    </>
   );
 }
 

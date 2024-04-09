@@ -8,7 +8,14 @@
   --color-gray-50: #707070;
   --color-gray-75: #444;
   --color-black: #222;
-  --color-accent: #0d87e0;
+  --color-accent: var(--color-theme-brown, #0d87e0);
+
+  --color-theme-lightgreen: #a8b98a;
+  --color-theme-black: #261a0a;
+  --color-theme-brown: #ba8056;
+  --color-theme-darkbrown: #4a3f28;
+  --color-theme-lightbrown: #ecd7c7;
+  --color-theme-darkgreen: #7b704b;
 
   /** フォントサイズ **/
   --font-size-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem); /* 16-18px */

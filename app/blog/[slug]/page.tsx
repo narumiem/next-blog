@@ -1,4 +1,3 @@
-import Container from '@/app/_components/container';
 import PostBody from '@/app/_components/post-body';
 import PostCategories from '@/app/_components/post-categories';
 import PostHeader from '@/app/_components/post-header';
@@ -87,7 +86,7 @@ async function Post({ params }: Param): Promise<React.ReactElement | undefined> 
   const [prevPost, nextPost] = prevNextPost(allSlugs, slug);
 
   return (
-    <Container>
+    <>
       <article>
         <PostHeader title={post.title} subtitle={subtitle} publishDate={post.dateGmt} />
 
@@ -128,7 +127,7 @@ async function Post({ params }: Param): Promise<React.ReactElement | undefined> 
           nextUrl={`/${blogPath}/${nextPost.slug}`}
         />
       </article>
-    </Container>
+    </>
   );
 }
 

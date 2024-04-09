@@ -2,6 +2,7 @@
 @import '@/app/_styles/_reset.css';
 
 body {
+  background-color: var(--color-theme-lightgreen);
   color: var(--color-black);
   font-family: -apple-system, BlinkMacSystemFont, /* Apple */ 
   'Segoe UI', Meiryo, /* Windows */ 

@@ -1,0 +1,10 @@
+.frame {
+  background-color: var(--color-white);
+}
+
+@media (min-width: 768px) {
+  .frame {
+    margin-top: 1em;
+    border-radius: 1em;
+  }
+}

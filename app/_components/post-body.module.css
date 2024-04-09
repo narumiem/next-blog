@@ -1,11 +1,3 @@
-.postBody ul,
-.postBoyd ol{
-  list-style: inherit;
-}
-.postBody a {
-  text-decoration: underline;
-}
-
 .stack > * + * {
   margin-top: var(--stack-space, 1.5em);
 }
@@ -20,11 +12,25 @@
 .stack p {
   line-height: 1.8;
 }
-.stack ul {
+.stack ul,
+.stack ol {
   padding: revert;
   list-style: revert;
 }
-/* .stack img {
-  max-width: 100%;
-  height: auto;
-} */
+.stack a {
+  text-decoration: underline;
+  color: revert;
+}
+.stack a:link {
+  color: var(--color-accent);
+}
+.stack a:visited {
+  color: var(--color-accent);
+}
+.stack a:hover {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+.stack a:active {
+  color: var(--color-black);
+}

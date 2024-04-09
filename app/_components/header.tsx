@@ -1,18 +1,20 @@
 import Logo from '@/app/_components/logo';
-import Nav from '@/app/_components/nav';
+import Nav, { PageList } from '@/app/_components/nav';
 import styles from '@/app/_components/header.module.css';
 import Container from '@/app/_components/container';
-import Breadcrumbs from '@/app/_components/breadcrumbs';
+import { getAllPages } from '@/app/_lib/apollo-client';
 
-function Header(): React.ReactElement {
+async function Header(): Promise<React.ReactElement> {
+  const allPages = (await getAllPages()) ?? [];
+  const pageList: PageList[] = allPages.map(({ id, slug, title }) => ({ id, slug, title }));
+
   return (
-    <header>
-      <Container large>
+    <header className={styles.header}>
+      <Container large isHeader>
         <div className={styles.flexContainer}>
           <Logo boxOn />
-          <Nav />
+          <Nav pageList={pageList} />
         </div>
-        <Breadcrumbs />
       </Container>
     </header>
   );

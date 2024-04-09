@@ -1,4 +1,3 @@
-import Container from '@/app/_components/container';
 import Hero from '@/app/_components/hero';
 import { siteMeta } from '@/app/_const/site-meta';
 import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
@@ -39,10 +38,10 @@ async function Blog(): Promise<React.ReactElement> {
   const updatedPosts = await setBlurDataURLForPosts(posts)
 
   return (
-    <Container>
+    <>
       <Hero title="blog" subtitle="recent posts" />
       <Posts posts={updatedPosts} />
-    </Container>
+    </>
   );
 }
 

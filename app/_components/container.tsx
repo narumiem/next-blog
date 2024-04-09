@@ -4,15 +4,19 @@ import { ReactNode } from 'react';
 interface ContainerProps {
   children: ReactNode;
   large?: boolean;
+  isHeader?: boolean;
 }
 
 function Container({
   children,
   large = false,
+  isHeader = false,
 }: ContainerProps): React.ReactElement {
-  return (
-    <div className={large ? styles.large : styles.default}>{children}</div>
-  );
+  const classList = [large ? styles.large : styles.container, isHeader ? styles.header : '']
+    .filter(Boolean)
+    .join(' ');
+  
+  return <div className={classList}>{children}</div>;
 }
 
 export default Container;

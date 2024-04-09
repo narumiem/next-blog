@@ -44,8 +44,8 @@ export const siteConfig: SiteConfig = {
   siteTimezone: 'Asia/Tokyo',
   siteAnalyticsID: 'G-EDFYLLGESB',
   siteThemeColor: {
-    light: 'skyblue',
-    dark: 'orange',
+    light: '#a8b98a', // --color-theme-lightgreen
+    dark: '#4a3f28', // --color-theme-darkbrown
   },
   siteRobots: {
     index: false,

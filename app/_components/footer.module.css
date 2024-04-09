@@ -1,6 +1,7 @@
-.wrapper {
+.footer {
   padding: var(--space-x-large) 0;
-  background-color: var(--color-gray-10);
+  background-color: var(--color-theme-darkbrown);
+  color: var(--color-theme-lightbrown);
 }
 
 .flexContaier {

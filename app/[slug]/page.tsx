@@ -1,5 +1,4 @@
 import Contact from '@/app/_components/contact';
-import Container from '@/app/_components/container';
 import Hero from '@/app/_components/hero';
 import PostBody from '@/app/_components/post-body';
 import TwoColumn from '@/app/_components/two-column';
@@ -77,7 +76,7 @@ async function Page({ params }: Param): Promise<React.ReactElement> {
   const blurDataURL = await getImageBlurData(eyecatch.mediaItemUrl);
 
   return (
-    <Container>
+    <>
       <Hero title={page.title} />
       {isEyecatch && (
         <figure>
@@ -109,7 +108,7 @@ async function Page({ params }: Param): Promise<React.ReactElement> {
           <Contact />
         </TwoColumn.Sidebar>
       </TwoColumn>
-    </Container>
+    </>
   );
 }
 export default Page;

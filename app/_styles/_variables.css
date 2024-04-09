@@ -23,14 +23,8 @@
   --font-size-heading1: clamp(2rem, 1.3rem + 3vw, 4rem); /* 32-64px */
   --font-size-heading2: calc(var(--font-size-body) * 1.5); /* 24-72px */
   --font-size-heading3: calc(var(--font-size-body) * 1.2); /* 19.2-21.6px */
-  --font-size-small-heading2: clamp(
-    0.875rem,
-    4vw - 1rem,
-    1.6875rem
-  ); /* 14-27px */
-  --font-size-small-heading3: calc(
-    var(--font-size-small-heading2) * 0.86
-  ); /* 12-23px */
+  --font-size-small-heading2: clamp(0.875rem, 4vw - 1rem, 1.6875rem); /* 14-27px */
+  --font-size-small-heading3: calc(var(--font-size-small-heading2) * 0.86); /* 12-23px */
 
   /** 余白 **/
   --space-x-small: clamp(1.25rem, 1rem + 0.98vw, 1.875rem); /* 20-30px */

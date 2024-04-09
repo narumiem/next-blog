@@ -9,10 +9,9 @@ interface ContainerProps {
 
 function Container({
   children,
-  large = false,
   isHeader = false,
 }: ContainerProps): React.ReactElement {
-  const classList = [large ? styles.large : styles.container, isHeader ? styles.header : '']
+  const classList = [styles.container, isHeader ? styles.header : '']
     .filter(Boolean)
     .join(' ');
   

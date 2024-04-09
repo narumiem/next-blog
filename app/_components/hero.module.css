@@ -1,5 +1,9 @@
 .flexContainer {
   composes: sideBySideCenter from '@/app/_components/_utils.module.css';
+  padding: var(--space-small) 0;
+}
+.flexContainer figure {
+  padding: 0 1em;
 }
 
 .text {
@@ -10,11 +14,36 @@
 .title {
   font-size: var(--font-size-display);
   font-weight: 900;
+  color: var(--color-theme-darkbrown);
   letter-spacing: 0.15em;
 }
 
 .subtitle {
+  color: var(--color-gray-75);
   font-size: var(--font-size-heading3);
   font-weight: 700;
   margin-top: 1em;
+  text-align: center;
+}
+.subtitleWithImage {
+  composes: subtitle;
+  font-size: var(--font-size-heading2);
+  margin-top: 0;
+}
+
+@media (min-width: 768px) {
+  .flexContainer figure {
+    padding: 0;
+  }
+  .text {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .image {
+    width: 35%;
+  }
+  .textWithImage {
+    composes: text;
+    width: 60%;
+  }
 }

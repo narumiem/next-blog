@@ -3,7 +3,6 @@ import PostCategories from '@/app/_components/post-categories';
 import PostHeader from '@/app/_components/post-header';
 import TwoColumn from '@/app/_components/two-column';
 import ParseHTML from '@/app/_lib/html-react-parser';
-import Image from 'next/image';
 import { htmlToText } from '@/app/_lib/html-to-text';
 import { siteMeta } from '@/app/_const/site-meta';
 import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
@@ -14,6 +13,7 @@ import type { Metadata } from 'next';
 import { blogPath, eyecatchDefault } from '@/app/_const/site-config';
 import { getAllPosts, getPostBySlug } from '@/app/_lib/apollo-client';
 import PostTags from '@/app/_components/post-tags';
+import PostEyecatch from '@/app/_components/post-eyecatch';
 
 interface StaticParams {
   slug: string;
@@ -89,23 +89,12 @@ async function Post({ params }: Param): Promise<React.ReactElement | undefined> 
     <>
       <article>
         <PostHeader title={post.title} subtitle={subtitle} publishDate={post.dateGmt} />
-
-        <figure>
-          <Image
-            src={eyecatch.mediaItemUrl}
-            alt={eyecatch.altText}
-            width={eyecatch.mediaDetails.width}
-            height={eyecatch.mediaDetails.height}
-            sizes="(min-width: 1152px) 1152px, 100vw"
-            style={{
-              width: '100%',
-              height: 'auto',
-            }}
-            placeholder="blur"
-            blurDataURL={blurDataURL}
-            priority
-          />
-        </figure>
+        <PostEyecatch
+          src={eyecatch.mediaItemUrl}
+          alt={eyecatch.altText}
+          priority
+          blurDataURL={blurDataURL}
+        />
 
         <TwoColumn>
           <TwoColumn.Main>

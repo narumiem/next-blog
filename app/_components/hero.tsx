@@ -1,5 +1,5 @@
 import styles from '@/app/_components/hero.module.css';
-import { siteConfig, versatileBlurData } from '@/app/_const/site-config';
+import { siteLogo } from '@/app/_const/site-config';
 import Image from 'next/image';
 
 interface HeroProps {
@@ -12,28 +12,28 @@ function Hero({ title, subtitle, imageOn = false }: HeroProps): React.ReactEleme
   return (
     <div className={styles.flexContainer}>
       {imageOn && (
-        <h1>
+        <h1 className={styles.image}>
           <figure>
             <Image
-              src="/images/site-logo.webp"
-              width={720}
-              height={640}
-              alt={siteConfig.siteTitle}
-              sizes="(min-width: 1152px) 576px, (min-width: 768px) 50vw, 100vw"
+              src={siteLogo.src}
+              width={siteLogo.width}
+              height={siteLogo.height}
+              alt={siteLogo.alt}
+              sizes="(max-width: 768px) 100vw, (max-width: 1220px) 50vw, 1220px"
+              priority
+              placeholder="blur"
               style={{
                 maxWidth: '100%',
                 height: 'auto',
               }}
-              priority
-              placeholder="blur"
-              blurDataURL={versatileBlurData}
+              blurDataURL={siteLogo.blurDataURL}
             />
           </figure>
         </h1>
       )}
-      <div className={styles.text}>
+      <div className={imageOn ? styles.textWithImage : styles.text}>
         {!imageOn && <h1 className={styles.title}>{title}</h1>}
-        {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+        {subtitle && <p className={imageOn ? styles.subtitleWithImage : styles.subtitle}>{subtitle}</p>}
       </div>
     </div>
   );

@@ -27,6 +27,14 @@ interface SiteConfig {
   };
 }
 
+interface SiteLogo {
+  src: string;
+  width: number;
+  height: number;
+  alt: string;
+  blurDataURL: string;
+}
+
 export const siteConfig: SiteConfig = {
   siteTitle: 'Next Blog',
   siteTitlePipe: '|',
@@ -56,6 +64,14 @@ export const siteConfig: SiteConfig = {
 
 export const versatileBlurData: string =
   'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/B8AAukB9LFu0T8AAAAASUVORK5CYII=';
+
+export const siteLogo: SiteLogo = {
+  src: '/images/site-logo.webp',
+  width: 720,
+  height: 640,
+  alt: siteConfig.siteTitle,
+  blurDataURL: versatileBlurData,
+};
 
 export const eyecatchDefault: Eyecatch = {
   id: 'default',

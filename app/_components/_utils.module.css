@@ -13,7 +13,7 @@
 @media (min-width: 768px) {
   .sideBySide {
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
 }
 

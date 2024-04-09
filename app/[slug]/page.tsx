@@ -2,7 +2,6 @@ import Contact from '@/app/_components/contact';
 import Hero from '@/app/_components/hero';
 import PostBody from '@/app/_components/post-body';
 import TwoColumn from '@/app/_components/two-column';
-import Image from 'next/image';
 import { siteMeta } from '@/app/_const/site-meta';
 import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
 import { getAllPages, getPageBySlug } from '@/app/_lib/apollo-client';
@@ -11,6 +10,7 @@ import ParseHTML from '@/app/_lib/html-react-parser';
 import { Metadata } from 'next';
 import { htmlToText } from '@/app/_lib/html-to-text';
 import { eyecatchDefault } from '@/app/_const/site-config';
+import PostEyecatch from '@/app/_components/post-eyecatch';
 
 interface StaticParams {
   slug: string;
@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
       images: [ogpImage],
     },
   };
-  
+
   return metadata;
 }
 
@@ -79,22 +79,12 @@ async function Page({ params }: Param): Promise<React.ReactElement> {
     <>
       <Hero title={page.title} />
       {isEyecatch && (
-        <figure>
-          <Image
-            src={eyecatch.mediaItemUrl}
-            width={eyecatch.mediaDetails.width}
-            height={eyecatch.mediaDetails.height}
-            alt={eyecatch.altText}
-            sizes="100vw"
-            style={{
-              maxWidth: '100%',
-              height: 'auto',
-            }}
-            priority
-            placeholder="blur"
-            blurDataURL={blurDataURL}
-          />
-        </figure>
+        <PostEyecatch
+          src={eyecatch.mediaItemUrl}
+          alt={eyecatch.altText}
+          priority
+          blurDataURL={blurDataURL}
+        />
       )}
 
       <TwoColumn>

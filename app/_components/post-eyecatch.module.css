@@ -1,0 +1,8 @@
+.eyecatch {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+.eyecatch img {
+  object-fit: cover;
+}

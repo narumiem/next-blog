@@ -240,6 +240,7 @@ export const GET_ALL_PAGES = gql`
     pages(where: { orderby: { field: MENU_ORDER, order: ASC } }) {
       nodes {
         id
+        menuOrder
         slug
         uri
         title

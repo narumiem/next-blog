@@ -6,7 +6,12 @@ import { getAllPages } from '@/app/_lib/apollo-client';
 
 async function Header(): Promise<React.ReactElement> {
   const allPages = (await getAllPages()) ?? [];
-  const pageList: PageList[] = allPages.map(({ id, slug, title }) => ({ id, slug, title }));
+  const pageList: PageList[] = allPages.map(({ id, menuOrder, slug, title }) => ({
+    id,
+    menuOrder,
+    slug,
+    title,
+  }));
 
   return (
     <header className={styles.header}>

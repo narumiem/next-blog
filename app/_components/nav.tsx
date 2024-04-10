@@ -6,6 +6,7 @@ import { blogPath } from '@/app/_const/site-config';
 
 export interface PageList {
   id: string;
+  menuOrder?: number;
   slug: string;
   title: string;
 }
@@ -40,13 +41,16 @@ function Nav({ pageList }: NavProps): React.ReactElement {
           </Link>
         </li>
         {pageList &&
-          pageList.map(({ id, slug, title }) => (
-            <li key={id}>
-              <Link href={`/${slug}`} onClick={closeNav}>
-                {title}
-              </Link>
-            </li>
-          ))}
+          pageList.map(
+            ({ id, menuOrder, slug, title }) =>
+              menuOrder && (
+                <li key={id}>
+                  <Link href={`/${slug}`} onClick={closeNav}>
+                    {title}
+                  </Link>
+                </li>
+              )
+          )}
       </ul>
     </nav>
   );

@@ -43,8 +43,6 @@ async function fetchGraphQLData(
   }
 }
 
-
-
 class NotFoundError extends Error {
   constructor(message: string) {
     super(message);
@@ -91,6 +89,7 @@ export interface Post {
 }
 export interface Page {
   id: string;
+  menuOrder?: number;
   slug: string;
   uri: string;
   title: string;
@@ -183,7 +182,7 @@ export async function getPageBySlug(slug: string): Promise<Page> {
 }
 
 export async function getAllPages(): Promise<Page[]> {
-  const data = await fetchGraphQLData(GET_ALL_PAGES)
+  const data = await fetchGraphQLData(GET_ALL_PAGES);
   if (!data?.pages?.nodes) {
     throw new NotFoundError(`No Pages were found.`);
   }

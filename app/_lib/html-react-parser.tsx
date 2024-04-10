@@ -22,9 +22,9 @@ export const options: HTMLReactParserOptions = {
           width={parseInt(width)}
           height={parseInt(height)}
           alt={alt}
-          sizes="(min-width: 768px) 768px, 100vw"
-          style={{ width: '100%', height: 'auto' }}
+          sizes="(max-width: 768px) 100vw, 768px"
           placeholder="blur"
+          style={{ width: '100%', height: 'auto' }}
           blurDataURL={versatileBlurData}
         />
       );

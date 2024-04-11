@@ -50,7 +50,7 @@ export const siteConfig: SiteConfig = {
   siteLocale: 'ja_JP',
   siteType: 'website',
   siteTimezone: 'Asia/Tokyo',
-  siteAnalyticsID: 'G-EDFYLLGESB',
+  siteAnalyticsID: 'G-L9Z09V0L3C',
   siteThemeColor: {
     light: '#a8b98a', // --color-theme-lightgreen
     dark: '#4a3f28', // --color-theme-darkbrown

@@ -1,6 +1,6 @@
 import PostEyecatch from '@/app/_components/post-eyecatch';
 import styles from '@/app/_components/posts.module.css';
-import { blogPath } from '@/app/_const/site-config';
+import { BLOG_PATH } from '@/app/_const/site-config';
 import type { Post } from '@/app/_lib/apollo-client';
 import Link from 'next/link';
 
@@ -13,7 +13,7 @@ function Posts({ posts }: PostsProps): React.ReactElement {
     <div className={styles.gridContainer}>
       {posts?.map(({ id, title, slug, featuredImage }) => (
         <article key={id} className={styles.post}>
-          <Link href={`/${blogPath}/${slug}`}>
+          <Link href={`/${BLOG_PATH}/${slug}`}>
             <figure>
               {featuredImage?.node?.mediaItemUrl && featuredImage.node.blurDataURL ? (
                 <PostEyecatch

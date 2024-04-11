@@ -1,11 +1,12 @@
+// Next.js configuration with TypeScript type checking
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // Define domains for optimized image loading
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'images.microcms-assets.io',
-        port: '',
         pathname: '/assets/**',
       },
       {
@@ -14,6 +15,7 @@ const nextConfig = {
       },
     ],
   },
+  
 };
 
 export default nextConfig;

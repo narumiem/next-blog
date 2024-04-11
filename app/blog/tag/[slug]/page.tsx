@@ -15,22 +15,26 @@ interface Param {
   };
 }
 
+// Indicate that dynamic params are not used for static generation
 export const dynamicParams = false;
 
+// Generate static params for tag pages
 export async function generateStaticParams(): Promise<StaticParams[] | undefined> {
-  const allTags = (await getAllTags()) ?? [];
-  return allTags.map(({ slug }) => ({ slug }));
+  const allTags = (await getAllTags()) ?? []; // Fetch all tags
+  return allTags.map(({ slug }) => ({ slug })); // Return slugs for static paths
 }
 
+// Generate metadata for tag pages
 export async function generateMetadata({ params }: Param): Promise<Metadata | undefined> {
-  const { siteTitle, siteTitlePipe, siteUrl } = siteMeta;
-  const tag = await getTagBySlug(params.slug);
-  if (!tag) return undefined;
-  const pathName = `/tag/${params.slug}`;
-  const pageDesc = `${tag.name}に関する記事`;
-  const ogpTitle = `${tag.name} ${siteTitlePipe} ${siteTitle}`;
-  const ogpUrl = new URL(pathName, siteUrl).toString();
+  const { siteTitle, siteTitlePipe, siteUrl } = siteMeta; // Destructure site metadata
+  const tag = await getTagBySlug(params.slug); // Fetch tag by slug
+  if (!tag) return undefined; // Return undefined if tag does not exist
+  const pathName = `/tag/${params.slug}`; // Construct path for the tag page
+  const pageDesc = `Articles related to ${tag.name}`; // Page description
+  const ogpTitle = `${tag.name} ${siteTitlePipe} ${siteTitle}`; // OGP title
+  const ogpUrl = new URL(pathName, siteUrl).toString(); // Full OGP URL
 
+  // Combine and return page metadata
   const metadata = {
     title: tag.name,
     alternates: {
@@ -52,18 +56,19 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
   return metadata;
 }
 
+// Tag component that displays posts for a specific tag
 async function Tag({ params }: Param): Promise<React.ReactElement> {
-  const tagSlug = params.slug;
-  const tag = await getTagBySlug(tagSlug);
-  if (!tag) return <p>タグが存在しません。</p>;
-  const posts = await getAllPostsByTag(tag.slug);
-  if (!posts || posts.length === 0) return <p>タグ「{tag.name}」には記事がありません。</p>;
-  const updatedPosts = await setBlurDataURLForPosts(posts);
+  const tag = await getTagBySlug(params.slug); // Fetch tag by slug
+  if (!tag) return <p>Tag not found.</p>; // Display message if tag does not exist
+  const posts = await getAllPostsByTag(tag.slug); // Fetch posts by tag slug
+  if (!posts || posts.length === 0) return <p>No posts found for tag &apos;{tag.name}&apos;.</p>; // Display message if no posts found
+  const updatedPosts = await setBlurDataURLForPosts(posts); // Update posts with blur data URLs
 
+  // Render tag page
   return (
     <>
-      <PostHeader title={tag.name} subtitle="Blog Tag" />
-      <Posts posts={updatedPosts} />
+      <PostHeader title={tag.name} subtitle="Blog Tag" /> {/* Display the tag name in the header */}
+      <Posts posts={updatedPosts} /> {/* Render the posts */}
     </>
   );
 }

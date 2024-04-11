@@ -4,7 +4,7 @@ import styles from '@/app/_components/breadcrumbs.module.css';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCaretRight } from '@fortawesome/free-solid-svg-icons';
-import { blogPath } from '@/app/_const/site-config';
+import { BLOG_PATH } from '@/app/_const/site-config';
 
 function Breadcrumbs(): React.ReactElement | null {
   const pathname = usePathname();
@@ -50,7 +50,7 @@ function Breadcrumbs(): React.ReactElement | null {
 
 function generateUrl(pathnames: string[], index: number): string {
   const path =
-    pathnames.slice(0, index + 1).join('/') === blogPath
+    pathnames.slice(0, index + 1).join('/') === BLOG_PATH
       ? pathnames.slice(0, index + 1).join('/') + '/page/1'
       : pathnames.slice(0, index + 1).join('/');
 

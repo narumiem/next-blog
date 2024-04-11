@@ -17,6 +17,7 @@ import Container from '@/app/_components/container';
 import Frame from '@/app/_components/frame';
 import Decoration from '@/app/_components/decoration';
 
+// Combine and export metadata for SEO
 export const metadata = {
   ...baseMetadata,
   robots: { ...robotsMetadata },
@@ -30,8 +31,8 @@ interface RootLayoutProps {
 }
 
 function RootLayout({ children }: RootLayoutProps): React.ReactElement {
-  const { siteLang } = siteMeta;
-  const { siteAnalyticsID } = siteConfig;
+  const { siteLang } = siteMeta; // Site language
+  const { siteAnalyticsID } = siteConfig; // Google Analytics ID
 
   return (
     <html lang={siteLang}>
@@ -39,12 +40,13 @@ function RootLayout({ children }: RootLayoutProps): React.ReactElement {
         <Header />
         <main>
           <Container>
-            <Frame>{children}</Frame>
+            <Frame>{children}</Frame> {/* Main content wrapper */}
           </Container>
-          <Decoration />
+          <Decoration /> {/* Additional visual elements */}
         </main>
         <Footer />
         {process.env.NODE_ENV === 'production' && <GoogleAnalytics gaId={siteAnalyticsID} />}
+        {/* Include Google Analytics only in production environment */}
       </body>
     </html>
   );

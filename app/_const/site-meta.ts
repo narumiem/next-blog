@@ -40,8 +40,8 @@ export const siteMeta: SiteMeta = {
   siteLang: siteLang,
   siteLocale: siteLocale,
   siteType: siteType,
-  siteThemeColorLight: siteThemeColorLight, // ライトテーマの時のUIカラー (一部のブラウザ/端末のみ)
-  siteThemeColorDark: siteThemeColorDark, // ダークテーマの時のUIカラー (一部のブラウザ/端末のみ)
+  siteThemeColorLight: siteThemeColorLight, // UI color when using light theme (some browsers/devices only)
+  siteThemeColorDark: siteThemeColorDark, // UI color when using dark theme (some browsers/devices only)
   siteRobotsIndex: siteRobotsIndex,
   siteRobotsFollow: siteRobotsFollow,
   siteRobotsNocache: siteRobotsNocache,

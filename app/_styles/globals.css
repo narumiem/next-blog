@@ -4,31 +4,28 @@
 body {
   background-color: var(--color-theme-lightgreen);
   color: var(--color-black);
-  font-family: -apple-system, BlinkMacSystemFont, /* Apple */ 
-  'Segoe UI', Meiryo, /* Windows */ 
-  Roboto, Oxygen, Ubuntu, Cantarell, /* others */ 
-  'Open Sans', 'Helvetica Neue', sans-serif /* fallback */;
+  /* 
+    Font family strategy:
+    - Use system fonts for Apple and Windows platforms first.
+    - Then, fall back to popular web fonts like Roboto, Oxygen, Ubuntu, and Cantarell for other platforms.
+    - Finally, use 'Open Sans', 'Helvetica Neue', and sans-serif as universal fallbacks.
+  */
+  font-family:
+    -apple-system, BlinkMacSystemFont, /* System fonts for Apple devices */
+    'Segoe UI', Meiryo, /* System fonts for Windows devices */
+    Roboto, Oxygen, Ubuntu, Cantarell, /* Popular web fonts for other platforms */
+    'Open Sans', 'Helvetica Neue', sans-serif; /* Universal fallback fonts */
   font-size: var(--font-size-body);
 }
+
 h1 {
   font-size: var(--font-size-heading1);
 }
+
 h2 {
   font-size: var(--font-size-heading2);
 }
+
 h3 {
   font-size: var(--font-size-heading3);
-}
-
-@media (prefers-color-scheme: light) {
-  /* body {
-    background-color: white;
-    color: black;
-  } */
-}
-@media (prefers-color-scheme: dark) {
-  /* body {
-    background-color: black;
-    color: white;
-  } */
 }

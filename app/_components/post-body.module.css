@@ -34,3 +34,7 @@
 .stack a:active {
   color: var(--color-black);
 }
+.stack img {
+  width: 100%;
+  height: auto;
+}

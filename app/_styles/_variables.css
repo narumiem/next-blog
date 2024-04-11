@@ -1,7 +1,7 @@
-/* CSSカスタムプロパティ */
+/* CSS Custom Properties */
 
 :root {
-  /** カラー **/
+  /* Colors */
   --color-white: #fff;
   --color-gray-10: #eee;
   --color-gray-25: #aaa;
@@ -17,7 +17,7 @@
   --color-theme-lightbrown: #ecd7c7;
   --color-theme-darkgreen: #7b704b;
 
-  /** フォントサイズ **/
+  /* Font Sizes */
   --font-size-body: clamp(1rem, 0.95rem + 0.2vw, 1.125rem); /* 16-18px */
   --font-size-display: clamp(4.5rem, 1.83rem + 11.34vw, 10rem); /* 72-160px */
   --font-size-heading1: clamp(2rem, 1.3rem + 3vw, 4rem); /* 32-64px */
@@ -26,7 +26,7 @@
   --font-size-small-heading2: clamp(0.875rem, 4vw - 1rem, 1.6875rem); /* 14-27px */
   --font-size-small-heading3: calc(var(--font-size-small-heading2) * 0.86); /* 12-23px */
 
-  /** 余白 **/
+  /* Spacing */
   --space-x-small: clamp(1.25rem, 1rem + 0.98vw, 1.875rem); /* 20-30px */
   --space-small: calc(var(--space-x-small) * 1.5); /* 30-45px */
   --space-medium: calc(var(--space-x-small) * 2); /* 40-60px */

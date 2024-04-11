@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import styles from '@/app/_components/nav.module.css';
 import { useState } from 'react';
-import { blogPath } from '@/app/_const/site-config';
+import { BLOG_PATH } from '@/app/_const/site-config';
 
 export interface PageList {
   id: string;
@@ -36,7 +36,7 @@ function Nav({ pageList }: NavProps): React.ReactElement {
           </Link>
         </li>
         <li>
-          <Link href={`/${blogPath}/page/1`} onClick={closeNav}>
+          <Link href={`/${BLOG_PATH}/page/1`} onClick={closeNav}>
             Blog
           </Link>
         </li>

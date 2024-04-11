@@ -1,6 +1,6 @@
 'use client';
 import styles from '@/app/_components/pager.module.css';
-import { blogPath } from '@/app/_const/site-config';
+import { BLOG_PATH } from '@/app/_const/site-config';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
@@ -43,7 +43,7 @@ function Pager({
       {/* 前へのリンク */}
       <li>
         <Link
-          href={`/${blogPath}/page/${Number(current) - 1}`}
+          href={`/${BLOG_PATH}/page/${Number(current) - 1}`}
           className={`styles.prev ${current <= min ? styles.disable : ''}`}
           onClick={handlePrevClick}
         >
@@ -63,7 +63,7 @@ function Pager({
       {Array.from({ length: maxPages }, (_, index) => (
         <li key={index + 1}>
           <Link
-            href={`/${blogPath}/page/${index + 1 + modify}`}
+            href={`/${BLOG_PATH}/page/${index + 1 + modify}`}
             className={`${current - modify === index + 1 ? styles.current : ''}`}
             onClick={handleCurrentClick}
           >
@@ -82,14 +82,14 @@ function Pager({
       {/* 最終ページへのリンク */}
       {total > max && current !== total && (
         <li>
-          <Link href={`/${blogPath}/page/${total}`}>{total}</Link>
+          <Link href={`/${BLOG_PATH}/page/${total}`}>{total}</Link>
         </li>
       )}
 
       {/* 次へのリンク */}
       <li>
         <Link
-          href={`/${blogPath}/page/${Number(current) + 1}`}
+          href={`/${BLOG_PATH}/page/${Number(current) + 1}`}
           className={`styles.next ${current >= total ? styles.disable : ''}`}
           onClick={handleNextClick}
         >

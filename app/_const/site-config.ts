@@ -15,6 +15,7 @@ interface SiteConfig {
   siteLocale: string;
   siteType: string;
   siteTimezone: string;
+  siteTimeFormat: string;
   siteAnalyticsID: string;
   siteThemeColor: {
     light: string;
@@ -38,8 +39,8 @@ interface SiteLogo {
 export const siteConfig: SiteConfig = {
   siteTitle: 'Next Blog',
   siteTitlePipe: '|',
-  siteDescription: 'Next.js で構築する Blog Portfolio',
-  siteUrl: 'https://portfolio-next-blog.narumiem.org',
+  siteDescription: 'Next.js と ヘッドレスWordpress で構築する Blog',
+  siteUrl: 'https://next-blog.narumiem.org',
   siteEmail: 'narumiem@gmail.com',
   siteSocial: {
     twitter: '',
@@ -50,6 +51,7 @@ export const siteConfig: SiteConfig = {
   siteLocale: 'ja_JP',
   siteType: 'website',
   siteTimezone: 'Asia/Tokyo',
+  siteTimeFormat: 'YYYY年MM月DD日 HH:mm:ss',
   siteAnalyticsID: 'G-L9Z09V0L3C',
   siteThemeColor: {
     light: '#a8b98a', // --color-theme-lightgreen
@@ -95,4 +97,5 @@ export const eyecatch404: Eyecatch = {
   blurDataURL: versatileBlurData,
 };
 
-export const blogPath: string = 'blog';
+export const BLOG_PATH: string = 'blog';
+export const PUBLIC_DIR: string = './public';

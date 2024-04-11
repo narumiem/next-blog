@@ -13,30 +13,32 @@ import { eyecatchDefault } from '@/app/_const/site-config';
 import PostEyecatch from '@/app/_components/post-eyecatch';
 
 interface StaticParams {
-  slug: string;
+  slug: string; // Slug of the page
 }
 interface Param {
   params: {
-    slug: string;
+    slug: string; // Dynamic parameter for page slug
   };
 }
 
+// Generates static parameters for page slugs
 export async function generateStaticParams(): Promise<StaticParams[]> {
-  const allIds = (await getAllPages()) ?? [];
-  return allIds.map(({ slug }) => ({ slug }));
+  const allIds = (await getAllPages()) ?? []; // Fetch all pages
+  return allIds.map(({ slug }) => ({ slug })); // Return slugs for static paths
 }
 
+// Generates metadata for each page
 export async function generateMetadata({ params }: Param): Promise<Metadata | undefined> {
-  const { siteTitle, siteTitlePipe, siteUrl } = siteMeta;
-  const page = await getPageBySlug(params.slug);
-  if (!page) return undefined;
+  const { siteTitle, siteTitlePipe, siteUrl } = siteMeta; // Site metadata
+  const page = await getPageBySlug(params.slug); // Fetch page by slug
+  if (!page) return undefined; // Return undefined if page does not exist
+  const description = htmlToText(page.content || ''); // Convert page content to text for description
+  const ogpTitle = `${page.title} ${siteTitlePipe} ${siteTitle}`; // OGP title
+  const ogpUrl = new URL(page.slug, siteUrl).toString(); // Full OGP URL for the page
+  const eyecatch = page.featuredImage?.node ?? eyecatchDefault; // Use page's featured image or default
+  const ogpImage = new URL(eyecatch.mediaItemUrl, siteUrl).toString(); // Full image URL for OGP
 
-  const description = htmlToText(page.content || '');
-  const ogpTitle = `${page.title} ${siteTitlePipe} ${siteTitle}`;
-  const ogpUrl = new URL(page.slug, siteUrl).toString();
-  const eyecatch = page.featuredImage?.node ?? eyecatchDefault;
-  const ogpImage = new URL(eyecatch.mediaItemUrl, siteUrl).toString();
-
+  // Combined metadata object
   const metadata = {
     title: page.title,
     alternates: {
@@ -67,35 +69,36 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
   return metadata;
 }
 
+// Main Page component
 async function Page({ params }: Param): Promise<React.ReactElement> {
-  const page = await getPageBySlug(params.slug);
-  if (!page) return <p>ページ「{params.slug}」が存在しません。</p>;
+  const page = await getPageBySlug(params.slug); // Fetch page by slug
+  if (!page) return <p>Page &apos;{params.slug}&apos; not found.</p>; // Display message if page does not exist
+  const isEyecatch = Boolean(page.featuredImage); // Check if an eyecatch image exists
+  const eyecatch = page.featuredImage?.node ?? eyecatchDefault; // Use page's featured image or default
+  const blurDataURL = await getImageBlurData(eyecatch.mediaItemUrl); // Get blur data URL for the eyecatch image
 
-  const isEyecatch = Boolean(page.featuredImage);
-  const eyecatch = page.featuredImage?.node ?? eyecatchDefault;
-  const blurDataURL = await getImageBlurData(eyecatch.mediaItemUrl);
-
+  // Render the page
   return (
     <>
-      <Hero title={page.title} />
+      <Hero title={page.title} /> {/* Display the page title in the hero section */}
       {isEyecatch && (
         <PostEyecatch
           src={eyecatch.mediaItemUrl}
           alt={eyecatch.altText}
           priority
           blurDataURL={blurDataURL}
-        />
+        /> /* Post eyecatch image */
       )}
 
       <TwoColumn>
         <TwoColumn.Main>
           <PostBody>
-            <ParseHTML contentHTML={page.content} />
+            <ParseHTML contentHTML={page.content} /> {/* Parse and display page content */}
           </PostBody>
         </TwoColumn.Main>
 
         <TwoColumn.Sidebar>
-          <Contact />
+          <Contact /> {/* Contact section */}
         </TwoColumn.Sidebar>
       </TwoColumn>
     </>

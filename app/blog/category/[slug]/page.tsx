@@ -1,8 +1,7 @@
 import PostHeader from '@/app/_components/post-header';
 import Posts from '@/app/_components/posts';
-import { siteMeta } from '@/app/_const/site-meta';
 import { setBlurDataURLForPosts } from '@/app/_lib/plaiceholder';
-import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
+import { openGraphMetadata, siteMetadata, twitterMetadata } from '@/app/_lib/metadata';
 import type { Metadata } from 'next';
 import {
   getAllCategories,
@@ -10,34 +9,44 @@ import {
   getCategoryBySlug,
 } from '@/app/_lib/apollo-client';
 
+// Define the shape of the static parameters
 interface StaticParams {
-  slug: string; // Slug of the category
+  slug: string;
 }
+
+// Define the shape of the parameter object
 interface Param {
   params: {
-    slug: string; // Dynamic parameter for category slug
+    slug: string;
   };
 }
 
-export const dynamicParams = false; // Indicates static generation does not use dynamic params
+// Indicate that dynamic parameters are not supported
+export const dynamicParams = false;
 
-// Generates static parameters for category pages
+/**
+ * Generate the static parameters for the page.
+ * @returns An array of static parameters or undefined.
+ */
 export async function generateStaticParams(): Promise<StaticParams[] | undefined> {
-  const allCategories = (await getAllCategories()) ?? []; // Fetch all categories
-  return allCategories.map(({ slug }) => ({ slug })); // Return slugs for static paths
+  const allCategories = (await getAllCategories()) ?? [];
+  return allCategories.map(({ slug }) => ({ slug }));
 }
 
-// Generates metadata for each category page
+/**
+ * Generate the metadata for the page.
+ * @param params - The parameter object.
+ * @returns The metadata object or undefined.
+ */
 export async function generateMetadata({ params }: Param): Promise<Metadata | undefined> {
-  const { siteTitle, siteTitlePipe, siteUrl } = siteMeta; // Site metadata
-  const category = await getCategoryBySlug(params.slug); // Fetch category by slug
-  if (!category) return undefined; // Return undefined if category does not exist
-  const pathName = `/category/${params.slug}`; // Path for the current category
-  const pageDesc = `Articles related to ${category.name}`; // Description for the current category page
-  const ogpTitle = `${category.name} ${siteTitlePipe} ${siteTitle}`; // OGP title
-  const ogpUrl = new URL(pathName, siteUrl).toString(); // Full OGP URL
+  const { siteTitle, siteTitlePipe, siteUrl } = siteMetadata;
+  const category = await getCategoryBySlug(params.slug);
+  if (!category) return undefined;
+  const pathName = `/category/${params.slug}`;
+  const pageDesc = `Articles related to ${category.name}`;
+  const ogpTitle = `${category.name} ${siteTitlePipe} ${siteTitle}`;
+  const ogpUrl = new URL(pathName, siteUrl).toString();
 
-  // Combined metadata object
   const metadata = {
     title: category.name,
     alternates: {
@@ -60,20 +69,23 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
   return metadata;
 }
 
-// Main Category component
+/**
+ * Render the Category page.
+ * @param params - The parameter object.
+ * @returns The rendered Category page.
+ */
 async function Category({ params }: Param): Promise<React.ReactElement> {
-  const category = await getCategoryBySlug(params.slug); // Fetch category by slug
-  if (!category) return <p>Category not found.</p>; // Display message if category does not exist
-  const posts = await getAllPostsByCategory(category.slug); // Fetch posts by category slug
+  const category = await getCategoryBySlug(params.slug);
+  if (!category) return <p>Category not found.</p>;
+  const posts = await getAllPostsByCategory(category.slug);
   if (!posts || posts.length === 0)
-    return <p>No posts found for category &apos;{category.name}&apos;.</p>; // Display message if no posts found
-  const updatedPosts = await setBlurDataURLForPosts(posts); // Update posts with blur data URLs
+    return <p>No posts found for category &apos;{category.name}&apos;.</p>;
+  const updatedPosts = await setBlurDataURLForPosts(posts);
 
-  // Render category page
   return (
     <>
-      <PostHeader title={category.name} subtitle="Blog Category" /> {/* Display the category name in the header */}
-      <Posts posts={updatedPosts} /> {/* Render the posts */}
+      <PostHeader title={category.name} subtitle="Blog Category" />
+      <Posts posts={updatedPosts} />
     </>
   );
 }

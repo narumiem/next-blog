@@ -1,3 +1,7 @@
+/* =========================
+   Logo Component CSS
+   ========================= */
+
 .basic {
   font-size: var(--font-size-heading2);
   font-weight: 700;
@@ -10,5 +14,5 @@
   padding: 1em 2em;
   background-color: var(--color-theme-darkbrown);
   color: var(--color-white);
-  font-size: var(--font-size-small-heading2); 
+  font-size: var(--font-size-small-heading2);
 }

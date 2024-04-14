@@ -3,17 +3,18 @@ import { versatileBlurData } from '@/app/_const/site-config';
 import parse, { DOMNode, Element, HTMLReactParserOptions, domToReact } from 'html-react-parser';
 import Image from 'next/image';
 
-// Options for parsing HTML content to React components.
+// Define the options for html-react-parser
 export const options: HTMLReactParserOptions = {
   replace: (domNode) => {
+    // Skip processing if the node is not an Element or not a tag
     if (!(domNode instanceof Element) || domNode.type !== 'tag') return;
 
-    // Removes script tags from the output.
+    // Skip processing if the node is a script tag
     if (domNode.name === 'script') {
       return <></>;
     }
 
-    // Converts img tags to Next.js Image component.
+    // Replace image tags with Next.js Image component
     if (domNode.name === 'img') {
       const { src, alt, width, height } = domNode.attribs;
       const parsedWidth = parseInt(width, 10);
@@ -35,7 +36,7 @@ export const options: HTMLReactParserOptions = {
       );
     }
 
-    // Converts custom accordion tags to Accordion components.
+    // Replace accordion tags with custom Accordion component
     if (domNode.name === 'accordion') {
       return (
         <Accordion heading={domNode.attribs.heading}>
@@ -46,11 +47,18 @@ export const options: HTMLReactParserOptions = {
   },
 };
 
+/**
+ * Props for the ParseHTML component.
+ */
 interface ParseHTMLProps {
-  contentHTML: string;
+  contentHTML: string; // The HTML content to parse
 }
 
-// Parses HTML string into React elements using configured options.
+/**
+ * Component that parses HTML content and renders it as React elements.
+ * @param {ParseHTMLProps} props - The component props.
+ * @returns {React.ReactElement} The rendered React element.
+ */
 function ParseHTML({ contentHTML }: ParseHTMLProps): React.ReactElement {
   return <>{parse(contentHTML, options)}</>;
 }

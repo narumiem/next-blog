@@ -1,5 +1,9 @@
+/* =========================
+   Header Component CSS
+   ========================= */
+
 .flexContainer {
-  composes: spaceBetween from '@/app/_components/_utils.module.css';
+  composes: spaceBetween from '@/app/_components/_layouts.module.css';
 }
 .header {
   position: sticky;

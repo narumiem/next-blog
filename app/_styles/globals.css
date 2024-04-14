@@ -1,6 +1,10 @@
 @import '@/app/_styles/_variables.css';
 @import '@/app/_styles/_reset.css';
 
+/* =========================
+   Global Styles
+   ========================= */
+
 body {
   background-color: var(--color-theme-lightgreen);
   color: var(--color-black);

@@ -1,5 +1,9 @@
+/* =========================
+   Hero Component CSS
+   ========================= */
+
 .flexContainer {
-  composes: sideBySideCenter from '@/app/_components/_utils.module.css';
+  composes: sideBySideCenter from '@/app/_components/_layouts.module.css';
   padding: var(--space-small) 0;
 }
 .flexContainer figure {

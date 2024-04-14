@@ -1,57 +1,61 @@
 import { BLOG_PATH } from '@/app/_const/site-config';
-import { siteMeta } from '@/app/_const/site-meta';
 import { getAllCategories, getAllPages, getAllPosts, getAllTags } from '@/app/_lib/apollo-client';
+import { siteMetadata } from '@/app/_lib/metadata';
 
-interface Sitemap {
-  url: string;
-  lastModified: Date;
+// Interface for the sitemap entry
+interface SitemapEntry {
+  url: string; // The URL of the entry
+  lastModified: Date; // The last modified date of the entry
 }
 
-async function sitemap(): Promise<Sitemap[]> {
-  // Extract siteUrl from site metadata
-  const { siteUrl } = siteMeta;
+/**
+ * Generates the sitemap for the website.
+ * @returns An array of sitemap entries.
+ */
+async function sitemap(): Promise<SitemapEntry[]> {
+  const { siteUrl } = siteMetadata;
 
-  // Fetch and transform pages data for sitemap
+  // Get all pages and map them to sitemap entries
   const pages = (await getAllPages()) ?? [];
   const pageFields = pages.map((page) => {
     return {
-      url: new URL(`/${page.slug}`, siteUrl).toString(), // Construct URL for each page
-      lastModified: new Date(), // Set last modified date
+      url: new URL(`/${page.slug}`, siteUrl).toString(),
+      lastModified: new Date(),
     };
   });
 
-  // Fetch and transform posts data for sitemap
+  // Get all posts and map them to sitemap entries
   const posts = (await getAllPosts()) ?? [];
   const postFields = posts.map((post) => {
     return {
-      url: new URL(`/${BLOG_PATH}/${post.slug}`, siteUrl).toString(), // Construct URL for each post
-      lastModified: new Date(), // Set last modified date
+      url: new URL(`/${BLOG_PATH}/${post.slug}`, siteUrl).toString(),
+      lastModified: new Date(),
     };
   });
 
-  // Fetch and transform categories data for sitemap
+  // Get all categories and map them to sitemap entries
   const categories = (await getAllCategories()) ?? [];
   const categoryFields = categories.map((category) => {
     return {
-      url: new URL(`/${BLOG_PATH}/category/${category.slug}`, siteUrl).toString(), // Construct URL for each category
-      lastModified: new Date(), // Set last modified date
+      url: new URL(`/${BLOG_PATH}/category/${category.slug}`, siteUrl).toString(),
+      lastModified: new Date(),
     };
   });
 
-  // Fetch and transform tags data for sitemap
+  // Get all tags and map them to sitemap entries
   const tags = (await getAllTags()) ?? [];
   const tagFields = tags.map((tag) => {
     return {
-      url: new URL(`/${BLOG_PATH}/tags/${tag.slug}`, siteUrl).toString(), // Construct URL for each tag
-      lastModified: new Date(), // Set last modified date
+      url: new URL(`/${BLOG_PATH}/tags/${tag.slug}`, siteUrl).toString(),
+      lastModified: new Date(),
     };
   });
 
-  // Combine and return all sitemap fields
+  // Combine all sitemap entries into a single array
   return [
     {
-      url: new URL(siteUrl).toString(), // Add the site URL as the first entry
-      lastModified: new Date(), // Set last modified date for the site URL
+      url: new URL(siteUrl).toString(),
+      lastModified: new Date(),
     },
     ...pageFields,
     ...postFields,

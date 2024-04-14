@@ -4,7 +4,12 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { getPlaiceholder } from 'plaiceholder';
 
-// Fetches image as Buffer from URL or local path.
+/**
+ * Retrieves the buffer data of an image from a given source.
+ * @param src - The source of the image.
+ * @returns A promise that resolves to the image buffer.
+ * @throws An error if the image fetching fails.
+ */
 async function getBuffer(src: string): Promise<Buffer> {
   try {
     if (src.startsWith('http')) {
@@ -19,8 +24,13 @@ async function getBuffer(src: string): Promise<Buffer> {
   }
 }
 
-// Generates a blur data URL for an image source.
-export async function getImageBlurData(src: string) {
+/**
+ * Retrieves the base64 data URL of an image with added blur effect.
+ * @param src - The source of the image.
+ * @returns A promise that resolves to the base64 data URL.
+ * If an error occurs, an empty string is returned.
+ */
+export async function getImageBlurData(src: string): Promise<string> {
   try {
     const imageBuffer = await getBuffer(src);
     const { base64 } = await getPlaiceholder(imageBuffer);
@@ -31,7 +41,11 @@ export async function getImageBlurData(src: string) {
   }
 }
 
-// Updates posts with blurDataURL for featured images.
+/**
+ * Sets the blur data URL for the featured images of an array of posts.
+ * @param posts - The array of posts.
+ * @returns A promise that resolves to the updated array of posts with blur data URLs.
+ */
 export async function setBlurDataURLForPosts(posts: Post[]): Promise<Post[]> {
   const updatedPosts = await Promise.all(
     posts.map(async (post) => {

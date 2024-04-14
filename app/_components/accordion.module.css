@@ -1,3 +1,7 @@
+/* =========================
+   Accordion Component CSS
+   ========================= */
+
 .open,
 .close {
   border: 1px solid var(--color-gray-25);

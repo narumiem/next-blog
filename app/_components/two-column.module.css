@@ -1,5 +1,9 @@
+/* =========================
+   TwoColumn Component CSS
+   ========================= */
+
 .flexContainer {
-  composes: sideBySide from './_utils.module.css';
+  composes: sideBySide from './_layouts.module.css';
   gap: var(--space-medium);
   margin: var(--space-medium) 0 var(--space-large);
 }

@@ -4,10 +4,19 @@ import { BLOG_PATH } from '@/app/_const/site-config';
 import type { Post } from '@/app/_lib/apollo-client';
 import Link from 'next/link';
 
+/**
+ * Renders a list of posts.
+ * @param posts - An array of Post objects.
+ */
 interface PostsProps {
   posts?: Post[];
 }
 
+/**
+ * Component that renders a list of posts.
+ * @param posts - An array of Post objects.
+ * @returns A React element representing the list of posts.
+ */
 function Posts({ posts }: PostsProps): React.ReactElement {
   return (
     <div className={styles.gridContainer}>

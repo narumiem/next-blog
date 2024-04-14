@@ -1,5 +1,9 @@
+/* =========================
+   Pagination Component CSS
+   ========================= */
+
 .flexContainer {
-  composes: spaceBetween from '@/app/_components/_utils.module.css';
+  composes: spaceBetween from '@/app/_components/_layouts.module.css';
   margin: var(--space-large) 0;
   gap: 1em;
 }

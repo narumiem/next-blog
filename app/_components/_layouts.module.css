@@ -1,23 +1,27 @@
-/* 両端揃え */
+/* =========================
+  Layouts CSS
+  ========================= */
+
+/* Align items to both ends */
 .spaceBetween {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* 横並び(基本形) */
+/* Side by side (basic) */
 .sideBySide {
   display: flex;
   flex-direction: column;
 }
 @media (min-width: 768px) {
   .sideBySide {
-    flex-direction: row;
-    justify-content: space-evenly;
+   flex-direction: row;
+   justify-content: space-evenly;
   }
 }
 
-/* 横並び(中央揃え) */
+/* Side by side (centered) */
 .sideBySideCenter {
   composes: sideBySide;
   align-items: center;
@@ -25,6 +29,6 @@
 }
 @media (min-width: 768px) {
   .sideBySideCenter {
-    text-align: left;
+   text-align: left;
   }
 }

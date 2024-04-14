@@ -3,8 +3,7 @@ import PostCategories from '@/app/_components/post-categories';
 import PostHeader from '@/app/_components/post-header';
 import TwoColumn from '@/app/_components/two-column';
 import { htmlToText } from '@/app/_lib/html-to-text';
-import { siteMeta } from '@/app/_const/site-meta';
-import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
+import { openGraphMetadata, siteMetadata, twitterMetadata } from '@/app/_lib/metadata';
 import { getImageBlurData } from '@/app/_lib/plaiceholder';
 import { getPrevAndNextPosts } from '@/app/_lib/prev-next-post';
 import Pagination from '@/app/_components/pagination';
@@ -15,38 +14,48 @@ import PostTags from '@/app/_components/post-tags';
 import PostEyecatch from '@/app/_components/post-eyecatch';
 import ParseHTML from '@/app/_lib/html-react-parser';
 
+// Define the interface for the static parameters
 interface StaticParams {
-  slug: string; // Slug of the post
+  slug: string; 
 }
+
+// Define the interface for the dynamic parameters
 interface Param {
   params: {
-    slug: string; // Dynamic parameter for post slug
+    slug: string;
   };
 }
 
-export const dynamicParams = false; // Indicates static generation does not use dynamic params
+// Set the flag for dynamic parameters to false
+export const dynamicParams = false; 
 
-// Generates static parameters for post pages
+/**
+ * Generate static parameters for the dynamic route.
+ * @returns An array of static parameters.
+ */
 export async function generateStaticParams(): Promise<StaticParams[]> {
-  const allslugs = (await getAllPosts()) ?? []; // Fetch all posts
-  return allslugs.map(({ slug }) => ({ slug })); // Return slugs for static paths
+  const allslugs = (await getAllPosts()) ?? [];
+  return allslugs.map(({ slug }) => ({ slug })); 
 }
 
-// Generates metadata for each post page
+/**
+ * Generate metadata for the dynamic route.
+ * @param params - The dynamic parameters.
+ * @returns The metadata for the page.
+ */
 export async function generateMetadata({ params }: Param): Promise<Metadata | undefined> {
-  const { siteTitle, siteTitlePipe, siteUrl } = siteMeta; // Site metadata
-  const post = await getPostBySlug(params.slug); // Fetch post by slug
-  if (!post) return undefined; // Return undefined if post does not exist
-  const description = htmlToText(post.content ? post.content : ''); // Convert post content to text for description
-  const ogpTitle = `${post.title} ${siteTitlePipe} ${siteTitle}`; // OGP title
-  const pathName = `/${BLOG_PATH}/${post.slug}`; // Path for the current post
-  const ogpUrl = new URL(pathName, siteUrl).toString(); // Full OGP URL
-  const eyecatch = post.featuredImage?.node ?? eyecatchDefault; // Use post's featured image or default
-  const ogpImage = new URL(eyecatch.mediaItemUrl, siteUrl).toString(); // Full image URL for OGP
-  const ogpImageWidth = eyecatch.mediaDetails.width; // Image width for OGP
-  const ogpImageHeight = eyecatch.mediaDetails.height; // Image height for OGP
+  const { siteTitle, siteTitlePipe, siteUrl } = siteMetadata; 
+  const post = await getPostBySlug(params.slug); 
+  if (!post) return undefined;
+  const description = htmlToText(post.content ? post.content : '');
+  const ogpTitle = `${post.title} ${siteTitlePipe} ${siteTitle}`; 
+  const pathName = `/${BLOG_PATH}/${post.slug}`; 
+  const ogpUrl = new URL(pathName, siteUrl).toString();
+  const eyecatch = post.featuredImage?.node ?? eyecatchDefault;
+  const ogpImage = new URL(eyecatch.mediaItemUrl, siteUrl).toString();
+  const ogpImageWidth = eyecatch.mediaDetails.width;
+  const ogpImageHeight = eyecatch.mediaDetails.height;
 
-  // Combined metadata object
   const metadata = {
     title: post.title,
     alternates: {
@@ -76,40 +85,41 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
   return metadata;
 }
 
-// Main Post component
+/**
+ * Render the post page.
+ * @param params - The dynamic parameters.
+ * @returns The rendered post page.
+ */
 async function Post({ params }: Param): Promise<React.ReactElement | undefined> {
-  const subtitle = 'Blog Article'; // Subtitle for the post
-  const post = await getPostBySlug(params.slug); // Fetch post by slug
-  if (!post) return <p>Post not found.</p>; // Display message if post does not exist
-  const eyecatch = post.featuredImage?.node ?? eyecatchDefault; // Use post's featured image or default
-  const blurDataURL = await getImageBlurData(eyecatch.mediaItemUrl); // Get blur data URL for the eyecatch image
-  const allPosts = (await getAllPosts()) ?? []; // Fetch all posts
-  if (!allPosts) return <p>No posts available.</p>; // Display message if no posts are available
-  const [prevPost, nextPost] = getPrevAndNextPosts(allPosts, post.slug); // Get previous and next posts
+  const subtitle = 'Blog Article';
+  const post = await getPostBySlug(params.slug);
+  if (!post) return <p>Post not found.</p>;
+  const eyecatch = post.featuredImage?.node ?? eyecatchDefault;
+  const blurDataURL = await getImageBlurData(eyecatch.mediaItemUrl);
+  const allPosts = (await getAllPosts()) ?? [];
+  if (!allPosts) return <p>No posts available.</p>;
+  const [prevPost, nextPost] = getPrevAndNextPosts(allPosts, post.slug);
 
-  // Render post page
   return (
     <>
       <article>
-        <PostHeader title={post.title} subtitle={subtitle} publishDate={post.dateGmt} />{' '}
-        {/* Post header*/}
+        <PostHeader title={post.title} subtitle={subtitle} publishDate={post.dateGmt} />
         <PostEyecatch
           src={eyecatch.mediaItemUrl}
           alt={eyecatch.altText}
           priority
           blurDataURL={blurDataURL}
         />
-        {/* Post eyecatch image */}
         <TwoColumn>
           <TwoColumn.Main>
             <PostBody>
-              <ParseHTML contentHTML={post.content ?? ''} /> {/* Parse and display post content */}
+              <ParseHTML contentHTML={post.content ?? ''} />
             </PostBody>
           </TwoColumn.Main>
 
           <TwoColumn.Sidebar>
-            <PostCategories categories={post.categories.nodes ?? []} /> {/* Post categories */}
-            <PostTags tags={post.tags.nodes ?? []} /> {/* Post tags */}
+            <PostCategories categories={post.categories.nodes ?? []} />
+            <PostTags tags={post.tags.nodes ?? []} />
           </TwoColumn.Sidebar>
         </TwoColumn>
         <Pagination
@@ -118,7 +128,6 @@ async function Post({ params }: Param): Promise<React.ReactElement | undefined> 
           nextText={nextPost?.title}
           nextUrl={`/${BLOG_PATH}/${nextPost?.slug}`}
         />
-        {/* Pagination for previous and next posts */}
       </article>
     </>
   );

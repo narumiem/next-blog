@@ -2,50 +2,59 @@ import Hero from '@/app/_components/hero';
 import Pager from '@/app/_components/pager';
 import Posts from '@/app/_components/posts';
 import { BLOG_PATH } from '@/app/_const/site-config';
-import { siteMeta } from '@/app/_const/site-meta';
 import { getAllPosts } from '@/app/_lib/apollo-client';
-import { openGraphMetadata, twitterMetadata } from '@/app/_lib/base-metadata';
+import { openGraphMetadata, siteMetadata, twitterMetadata } from '@/app/_lib/metadata';
 import { setBlurDataURLForPosts } from '@/app/_lib/plaiceholder';
 import { Metadata } from 'next';
 
-const postsPerPage = 6; // Number of posts per page
+const postsPerPage = 6;
 
+// StaticParams interface for the dynamic route parameter
 interface StaticParams {
-  number: string; // Page number
+  number: string;
 }
+
+// Param interface for the generateMetadata function parameter
 interface Param {
   params: {
-    number: string; // Dynamic parameter for page number
+    number: string;
   };
 }
 
-export const dynamicParams = false; // Indicates static generation does not use dynamic params
+// Flag to indicate if dynamic route parameters are enabled
+export const dynamicParams = false;
 
-// Generates static parameters for pagination
+/**
+ * Generates an array of StaticParams based on the total number of posts
+ * @returns An array of StaticParams or undefined if no posts are available
+ */
 export async function generateStaticParams(): Promise<StaticParams[] | undefined> {
-  const posts = await getAllPosts(); // Fetch all posts
-  if (!posts) return undefined; // Return undefined if no posts found
-  const totalPages = Math.ceil(posts.length / postsPerPage); // Calculate total pages
+  const posts = await getAllPosts();
+  if (!posts) return undefined;
+  const totalPages = Math.ceil(posts.length / postsPerPage);
   const generatePages = [];
   for (let i = 0; i < totalPages; i++) {
-    generatePages.push(i + 1); // Generate page numbers
+    generatePages.push(i + 1);
   }
 
   return generatePages.map((page) => ({
-    number: page.toString(), // Convert page number to string
+    number: page.toString(),
   }));
 }
 
-// Generates metadata for each page
+/**
+ * Generates the metadata for a specific blog posts page
+ * @param params - The dynamic route parameters
+ * @returns The metadata object or undefined if no posts are available
+ */
 export async function generateMetadata({ params }: Param): Promise<Metadata | undefined> {
-  const { siteTitle, siteTitlePipe, siteUrl } = siteMeta; // Site metadata
-  const pathName = `/${BLOG_PATH}/page/${params.number}`; // Path for the current page
-  const pageDesc = `Page ${params.number} of blog posts.`; // Description for the current page
-  const title = `Blog Posts - Page ${params.number}`; // Title for the current page
-  const ogpTitle = `${title} ${siteTitlePipe} ${siteTitle}`; // OGP title
-  const ogpUrl = new URL(pathName, siteUrl).toString(); // Full OGP URL
+  const { siteTitle, siteTitlePipe, siteUrl } = siteMetadata;
+  const pathName = `/${BLOG_PATH}/page/${params.number}`;
+  const pageDesc = `Page ${params.number} of blog posts.`;
+  const title = `Blog Posts - Page ${params.number}`;
+  const ogpTitle = `${title} ${siteTitlePipe} ${siteTitle}`;
+  const ogpUrl = new URL(pathName, siteUrl).toString();
 
-  // Combined metadata object
   const metadata = {
     title: title,
     alternates: {
@@ -68,23 +77,26 @@ export async function generateMetadata({ params }: Param): Promise<Metadata | un
   return metadata;
 }
 
-// Main Blog component
+/**
+ * Renders the blog posts page with the specified page number
+ * @param params - The dynamic route parameters
+ * @returns The React element representing the blog posts page
+ */
 async function Blog({ params }: Param): Promise<React.ReactElement> {
-  const number = parseInt(params.number); // Parse page number from params
-  if (isNaN(number) || number <= 0) return <p>Invalid page number.</p>; // Validate page number
-  const allPosts = await getAllPosts(); // Fetch all posts
-  if (!allPosts || allPosts.length === 0) return <p>No posts found.</p>; // Check if posts exist
-  const totalPages = Math.ceil(allPosts.length / postsPerPage); // Calculate total pages
-  const startIndex = (number - 1) * postsPerPage; // Calculate start index for posts
-  const posts = allPosts.slice(startIndex, startIndex + postsPerPage); // Slice posts for current page
-  const updatedPosts = await setBlurDataURLForPosts(posts); // Update posts with blur data URLs
+  const number = parseInt(params.number);
+  if (isNaN(number) || number <= 0) return <p>Invalid page number.</p>;
+  const allPosts = await getAllPosts();
+  if (!allPosts || allPosts.length === 0) return <p>No posts found.</p>;
+  const totalPages = Math.ceil(allPosts.length / postsPerPage);
+  const startIndex = (number - 1) * postsPerPage;
+  const posts = allPosts.slice(startIndex, startIndex + postsPerPage);
+  const updatedPosts = await setBlurDataURLForPosts(posts);
 
-  // Render posts page
   return (
     <>
-      <Hero title="blog" subtitle="recent posts" /> {/* Display hero with title and subtitle */}
-      <Posts posts={updatedPosts} /> {/* Render posts */}
-      <Pager current={number} total={totalPages} /> {/* Pagination component */}
+      <Hero title="blog" subtitle="recent posts" />
+      <Posts posts={updatedPosts} />
+      <Pager current={number} total={totalPages} />
     </>
   );
 }

@@ -1,24 +1,25 @@
 import styles from '@/app/_components/social.module.css';
-import { siteConfig } from '@/app/_const/site-config';
+import { siteSocial } from '@/app/_const/site-config';
 import { faFacebookF, faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+// Props for the Social component
 interface SocialProps {
-  iconSize?: string;
+  iconSize?: string; // Optional prop to specify the size of the icons
 }
 
+/**
+ * Social component displays social media links with icons.
+ * @param {SocialProps} props - The props for the Social component.
+ * @returns {React.ReactElement} The rendered Social component.
+ */
 function Social({ iconSize = 'initial' }: SocialProps): React.ReactElement {
-  const {
-    siteSocial: { twitter, facebook, github },
-  } = siteConfig;
+  const { twitter, facebook, github } = siteSocial;
 
+  // Array of social media links with their names, URLs, and icons
   const socialLinks = [
     { name: 'Twitter', url: `https://twitter.com/${twitter}`, icon: faTwitter },
-    {
-      name: 'Facebook',
-      url: `https://facebook.com/${facebook}`,
-      icon: faFacebookF,
-    },
+    { name: 'Facebook', url: `https://facebook.com/${facebook}`, icon: faFacebookF },
     { name: 'Github', url: `https://github.com/${github}`, icon: faGithub },
   ];
 

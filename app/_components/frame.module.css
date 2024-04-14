@@ -1,3 +1,7 @@
+/* =========================
+   Frame Component CSS
+   ========================= */
+
 .frame {
   background-color: var(--color-white);
   padding: var(--space-x-small);

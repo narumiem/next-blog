@@ -5,10 +5,18 @@ import { faFolderOpen } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 
+/**
+ * Props for the PostCategories component.
+ */
 interface PostCategoriesProps {
-  categories?: Category[];
+  categories?: Category[]; // An array of category objects
 }
 
+/**
+ * Renders a list of post categories.
+ * @param {PostCategoriesProps} props - The component props.
+ * @returns {React.ReactElement} The rendered component.
+ */
 function PostCategories({ categories }: PostCategoriesProps): React.ReactElement {
   return (
     <div className={styles.flexContainer}>
@@ -18,7 +26,6 @@ function PostCategories({ categories }: PostCategoriesProps): React.ReactElement
             <li key={id}>
               <Link href={`/${BLOG_PATH}/category/${slug}`}>
                 <FontAwesomeIcon icon={faFolderOpen} />
-                <span className="sr-only">Categories</span>
                 <span>{name}</span>
               </Link>
             </li>

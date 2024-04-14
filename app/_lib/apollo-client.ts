@@ -12,6 +12,10 @@ import {
 } from '@/app/_lib/graphql';
 import { ApolloClient, InMemoryCache, HttpLink, DocumentNode } from '@apollo/client';
 
+/**
+ * The GraphQL endpoint for WordPress.
+ * Make sure to set the environment variable WORDPRESS_GRAPHQL_ENDPOINT.
+ */
 const endpoint = process.env.WORDPRESS_GRAPHQL_ENDPOINT;
 if (!endpoint) {
   console.error(
@@ -19,18 +23,25 @@ if (!endpoint) {
   );
 }
 
-// Setup HTTP link for Apollo Client
 const httpLink = new HttpLink({
   uri: endpoint,
 });
 
-// Initialize Apollo Client
+/**
+ * The Apollo client instance.
+ */
 export const client = new ApolloClient({
   link: httpLink,
   cache: new InMemoryCache(),
 });
 
-// Generic function to fetch data from GraphQL API
+/**
+ * Fetches data from GraphQL using the Apollo client.
+ * @param query The GraphQL query document.
+ * @param variables The variables to be passed to the query.
+ * @returns The data returned by the GraphQL query.
+ * @throws Error if the GraphQL fetch fails.
+ */
 async function fetchGraphQLData(
   query: DocumentNode,
   variables: Record<string, string | number> = {}
@@ -52,7 +63,9 @@ async function fetchGraphQLData(
   }
 }
 
-// Custom error for not found resources
+/**
+ * Custom error class for not found errors.
+ */
 class NotFoundError extends Error {
   constructor(message: string) {
     super(message);
@@ -60,7 +73,9 @@ class NotFoundError extends Error {
   }
 }
 
-// Define interfaces for common data structures
+/**
+ * Interface for the eyecatch object.
+ */
 export interface Eyecatch {
   id: string;
   mediaItemUrl: string;
@@ -71,16 +86,28 @@ export interface Eyecatch {
   };
   blurDataURL?: string;
 }
+
+/**
+ * Interface for the category object.
+ */
 export interface Category {
   id: string;
   slug: string;
   name: string;
 }
+
+/**
+ * Interface for the tag object.
+ */
 export interface Tag {
   id: string;
   slug: string;
   name: string;
 }
+
+/**
+ * Interface for the post object.
+ */
 export interface Post {
   id: string;
   slug: string;
@@ -98,6 +125,10 @@ export interface Post {
     nodes: Tag[];
   };
 }
+
+/**
+ * Interface for the page object.
+ */
 export interface Page {
   id: string;
   menuOrder?: number;
@@ -112,7 +143,12 @@ export interface Page {
   };
 }
 
-// Function to fetch a single post by its slug
+/**
+ * Retrieves a post by its slug.
+ * @param slug The slug of the post.
+ * @returns The post object if found, otherwise null.
+ * @throws NotFoundError if the post is not found.
+ */
 export async function getPostBySlug(slug: string): Promise<Post | null> {
   const data = await fetchGraphQLData(GET_POST_BY_SLUG, { slug });
   if (!data?.post) {
@@ -121,7 +157,12 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   return data.post;
 }
 
-// Function to fetch a single category by its slug
+/**
+ * Retrieves a category by its slug.
+ * @param slug The slug of the category.
+ * @returns The category object if found, otherwise null.
+ * @throws NotFoundError if the category is not found.
+ */
 export async function getCategoryBySlug(slug: string): Promise<Category | null> {
   const data = await fetchGraphQLData(GET_CATEGORY_BY_SLUG, { slug });
   if (!data?.category) {
@@ -130,7 +171,12 @@ export async function getCategoryBySlug(slug: string): Promise<Category | null> 
   return data.category;
 }
 
-// Function to fetch a single tag by its slug
+/**
+ * Retrieves a tag by its slug.
+ * @param slug The slug of the tag.
+ * @returns The tag object if found, otherwise null.
+ * @throws NotFoundError if the tag is not found.
+ */
 export async function getTagBySlug(slug: string): Promise<Tag | null> {
   const data = await fetchGraphQLData(GET_TAG_BY_SLUG, { slug });
   if (!data?.tag) {
@@ -139,7 +185,12 @@ export async function getTagBySlug(slug: string): Promise<Tag | null> {
   return data.tag;
 }
 
-// Function to fetch all posts with optional limit
+/**
+ * Retrieves all posts.
+ * @param limit The maximum number of posts to retrieve.
+ * @returns An array of post objects.
+ * @throws NotFoundError if no posts are found.
+ */
 export async function getAllPosts(limit: number = 1000): Promise<Post[]> {
   const data = await fetchGraphQLData(GET_ALL_POSTS, { limit });
   if (!data?.posts?.nodes) {
@@ -148,7 +199,11 @@ export async function getAllPosts(limit: number = 1000): Promise<Post[]> {
   return data.posts.nodes;
 }
 
-// Function to fetch all categories
+/**
+ * Retrieves all categories.
+ * @returns An array of category objects.
+ * @throws NotFoundError if no categories are found.
+ */
 export async function getAllCategories(): Promise<Category[]> {
   const data = await fetchGraphQLData(GET_ALL_CATEGORIES);
   if (!data?.categories?.nodes) {
@@ -157,7 +212,11 @@ export async function getAllCategories(): Promise<Category[]> {
   return data.categories.nodes;
 }
 
-// Function to fetch all tags
+/**
+ * Retrieves all tags.
+ * @returns An array of tag objects.
+ * @throws NotFoundError if no tags are found.
+ */
 export async function getAllTags(): Promise<Tag[]> {
   const data = await fetchGraphQLData(GET_ALL_TAGS);
   if (!data?.tags?.nodes) {
@@ -166,7 +225,12 @@ export async function getAllTags(): Promise<Tag[]> {
   return data.tags.nodes;
 }
 
-// Function to fetch all posts associated with a category
+/**
+ * Retrieves all posts by category.
+ * @param slug The slug of the category.
+ * @returns An array of post objects.
+ * @throws NotFoundError if no posts are found in the category.
+ */
 export async function getAllPostsByCategory(slug: string): Promise<Post[]> {
   const data = await fetchGraphQLData(GET_ALL_POSTS_BY_CATEGORY, { slug });
   if (!data?.category?.posts?.nodes) {
@@ -175,7 +239,12 @@ export async function getAllPostsByCategory(slug: string): Promise<Post[]> {
   return data.category.posts.nodes;
 }
 
-// Function to fetch all posts associated with a tag
+/**
+ * Retrieves all posts by tag.
+ * @param slug The slug of the tag.
+ * @returns An array of post objects.
+ * @throws NotFoundError if no posts are found with the tag.
+ */
 export async function getAllPostsByTag(slug: string): Promise<Post[]> {
   const data = await fetchGraphQLData(GET_ALL_POSTS_BY_TAG, { slug });
   if (!data?.tag?.posts?.nodes) {
@@ -184,7 +253,12 @@ export async function getAllPostsByTag(slug: string): Promise<Post[]> {
   return data.tag.posts.nodes;
 }
 
-// Function to fetch a single page by its slug
+/**
+ * Retrieves a page by its slug.
+ * @param slug The slug of the page.
+ * @returns The page object.
+ * @throws NotFoundError if the page is not found.
+ */
 export async function getPageBySlug(slug: string): Promise<Page> {
   const data = await fetchGraphQLData(GET_PAGE_BY_SLUG, { slug });
   if (!data?.pages?.nodes) {
@@ -193,7 +267,11 @@ export async function getPageBySlug(slug: string): Promise<Page> {
   return data.pages.nodes[0];
 }
 
-// Function to fetch all pages
+/**
+ * Retrieves all pages.
+ * @returns An array of page objects.
+ * @throws NotFoundError if no pages are found.
+ */
 export async function getAllPages(): Promise<Page[]> {
   const data = await fetchGraphQLData(GET_ALL_PAGES);
   if (!data?.pages?.nodes) {

@@ -41,3 +41,8 @@ next-env.d.ts
 blog-prompt-guide.txt
 blog-prompt-image.txt
 blog-prompt-text.txt
+blog-prompt-comment.txt
+
+# VS Code
+.vscode
+

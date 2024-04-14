@@ -5,10 +5,18 @@ import { faTag } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Link from 'next/link';
 
+/**
+ * Props for the PostTags component.
+ */
 interface PostTagsProps {
-  tags?: Tag[];
+  tags?: Tag[]; // Array of tags
 }
 
+/**
+ * Component that displays tags for a blog post.
+ * @param tags - Array of tags to display
+ * @returns The PostTags component
+ */
 function PostTags({ tags }: PostTagsProps): React.ReactElement {
   return (
     <div className={styles.flexContainer}>
@@ -18,7 +26,6 @@ function PostTags({ tags }: PostTagsProps): React.ReactElement {
             <li key={id}>
               <Link href={`/${BLOG_PATH}/tag/${slug}`}>
                 <FontAwesomeIcon icon={faTag} />
-                <span className="sr-only">Tags</span>
                 <span>{name}</span>
               </Link>
             </li>

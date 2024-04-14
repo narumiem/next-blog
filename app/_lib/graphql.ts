@@ -1,8 +1,12 @@
 import { gql } from '@apollo/client';
 
-// ---------------------
+// =========================
+// GraphQL Queries
+// =========================
+
+// -------------------------
 // Post-related queries
-// ---------------------
+// -------------------------
 
 // Fragment for post's featured image
 const postFeaturedImageFragment = gql`

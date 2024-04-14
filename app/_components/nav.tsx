@@ -10,15 +10,32 @@ export interface PageList {
   slug: string;
   title: string;
 }
+
+/**
+ * Props for the Nav component.
+ */
 interface NavProps {
-  pageList: PageList[];
+  pageList: PageList[]; 
 }
 
+/**
+ * Navigation component that displays a menu with links.
+ * @param {NavProps} props - The props for the Nav component.
+ * @returns {React.ReactElement} The rendered Nav component.
+ */
 function Nav({ pageList }: NavProps): React.ReactElement {
-  const [navIsOpen, setNavIsOpen] = useState(false);
+  const [navIsOpen, setNavIsOpen] = useState(false); 
+
+  /**
+   * Toggles the navigation menu open or closed.
+   */
   const toggleNav = () => {
     setNavIsOpen((prev: boolean) => !prev);
   };
+
+  /**
+   * Closes the navigation menu.
+   */
   const closeNav = () => {
     setNavIsOpen(false);
   };
@@ -30,20 +47,23 @@ function Nav({ pageList }: NavProps): React.ReactElement {
         <span className="sr-only">MENU</span>
       </button>
       <ul className={styles.list}>
+
         <li>
           <Link href="/" onClick={closeNav}>
             Home
           </Link>
         </li>
+
         <li>
           <Link href={`/${BLOG_PATH}/page/1`} onClick={closeNav}>
             Blog
           </Link>
         </li>
+
         {pageList &&
           pageList.map(
             ({ id, menuOrder, slug, title }) =>
-              menuOrder && (
+              menuOrder && ( 
                 <li key={id}>
                   <Link href={`/${slug}`} onClick={closeNav}>
                     {title}

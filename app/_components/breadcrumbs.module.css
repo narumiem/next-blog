@@ -1,19 +1,23 @@
+/* =========================
+   Breadcrumbs Component CS
+   ========================= */
+
 .breadcrumbs {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 0.5em;
-    margin: 1em 0;
-    color: var(--color-gray-25);
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5em;
+  margin: 1em 0;
+  color: var(--color-gray-25);
 }
 .item {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5em;
 }
 .item a {
-    text-decoration: underline;
+  text-decoration: underline;
 }

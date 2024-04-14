@@ -1,10 +1,14 @@
+/* =========================
+   Footer Component CSS
+   ========================= */
+
 .footer {
   padding: var(--space-x-large) 0;
   background-color: var(--color-theme-darkbrown);
   color: var(--color-theme-lightbrown);
 }
 
-.flexContaier {
-  composes: sideBySideCenter from '@/app/_components/_utils.module.css';
+.flexContainer {
+  composes: sideBySideCenter from '@/app/_components/_layouts.module.css';
   gap: 2em;
 }

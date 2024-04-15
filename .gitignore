@@ -37,12 +37,8 @@ setup.sh
 *.tsbuildinfo
 next-env.d.ts
 
-# ChatGPT prompts for me
-blog-prompt-guide.txt
-blog-prompt-image.txt
-blog-prompt-text.txt
-blog-prompt-comment.txt
-
 # VS Code
 .vscode
 
+# private files
+.private

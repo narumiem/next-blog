@@ -16,8 +16,8 @@
 }
 @media (min-width: 768px) {
   .sideBySide {
-   flex-direction: row;
-   justify-content: space-evenly;
+    flex-direction: row;
+    justify-content: space-evenly;
   }
 }
 
@@ -29,6 +29,6 @@
 }
 @media (min-width: 768px) {
   .sideBySideCenter {
-   text-align: left;
+    text-align: left;
   }
 }

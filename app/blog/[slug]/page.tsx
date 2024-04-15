@@ -16,7 +16,7 @@ import ParseHTML from '@/app/_lib/html-react-parser';
 
 // Define the interface for the static parameters
 interface StaticParams {
-  slug: string; 
+  slug: string;
 }
 
 // Define the interface for the dynamic parameters
@@ -27,7 +27,7 @@ interface Param {
 }
 
 // Set the flag for dynamic parameters to false
-export const dynamicParams = false; 
+export const dynamicParams = false;
 
 /**
  * Generate static parameters for the dynamic route.
@@ -35,7 +35,7 @@ export const dynamicParams = false;
  */
 export async function generateStaticParams(): Promise<StaticParams[]> {
   const allslugs = (await getAllPosts()) ?? [];
-  return allslugs.map(({ slug }) => ({ slug })); 
+  return allslugs.map(({ slug }) => ({ slug }));
 }
 
 /**
@@ -44,12 +44,12 @@ export async function generateStaticParams(): Promise<StaticParams[]> {
  * @returns The metadata for the page.
  */
 export async function generateMetadata({ params }: Param): Promise<Metadata | undefined> {
-  const { siteTitle, siteTitlePipe, siteUrl } = siteMetadata; 
-  const post = await getPostBySlug(params.slug); 
+  const { siteTitle, siteTitlePipe, siteUrl } = siteMetadata;
+  const post = await getPostBySlug(params.slug);
   if (!post) return undefined;
   const description = htmlToText(post.content ? post.content : '');
-  const ogpTitle = `${post.title} ${siteTitlePipe} ${siteTitle}`; 
-  const pathName = `/${BLOG_PATH}/${post.slug}`; 
+  const ogpTitle = `${post.title} ${siteTitlePipe} ${siteTitle}`;
+  const pathName = `/${BLOG_PATH}/${post.slug}`;
   const ogpUrl = new URL(pathName, siteUrl).toString();
   const eyecatch = post.featuredImage?.node ?? eyecatchDefault;
   const ogpImage = new URL(eyecatch.mediaItemUrl, siteUrl).toString();

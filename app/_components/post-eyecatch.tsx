@@ -1,6 +1,6 @@
+import { CustomImage } from '@/app/_components/image';
 import styles from '@/app/_components/post-eyecatch.module.css';
 import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props';
-import Image from 'next/image';
 
 // Props for the PostEyecatch component
 interface PostEyecatchProps {
@@ -35,10 +35,10 @@ function PostEyecatch({
 }: PostEyecatchProps): React.ReactElement {
   const { width: w, height: h, ...fillStyle } = style;
   const styleList = fill ? fillStyle : { width: '100%', height: 'auto', ...style };
-  
+
   return (
     <figure className={styles.eyecatch}>
-      <Image
+      <CustomImage
         src={src}
         width={width}
         height={height}

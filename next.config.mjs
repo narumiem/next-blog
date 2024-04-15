@@ -6,16 +6,18 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.microcms-assets.io',
-        pathname: '/assets/**',
+        hostname: 'narumiem.org',
       },
       {
         protocol: 'https',
-        hostname: 'narumiem.org',
+        hostname: '192.168.1.2',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
       },
     ],
   },
-  
 };
 
 export default nextConfig;

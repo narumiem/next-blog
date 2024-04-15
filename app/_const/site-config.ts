@@ -13,11 +13,13 @@ interface SiteConfig {
   timezone: string; // The timezone of the site
   timeFormat: string; // The format of the site's time display
   googleAnalyticsID: string; // The ID of the site's analytics
-  themeColor: { // The theme colors of the site
+  themeColor: {
+    // The theme colors of the site
     light: string; // The light theme color
     dark: string; // The dark theme color
   };
-  robots: { // The robots meta settings of the site
+  robots: {
+    // The robots meta settings of the site
     index: boolean; // Whether the site should be indexed by search engines
     follow: boolean; // Whether search engines should follow links on the site
     nocache: boolean; // Whether search engines should cache the site's content

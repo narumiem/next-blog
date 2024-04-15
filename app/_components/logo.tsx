@@ -10,7 +10,7 @@ interface LogoProps {
   /**
    * Determines whether to display a box around the logo.
    */
-  boxOn?: boolean; 
+  boxOn?: boolean;
 }
 
 /**
@@ -19,7 +19,7 @@ interface LogoProps {
  * @returns {React.ReactElement} The rendered Logo component.
  */
 function Logo({ boxOn = false }: LogoProps): React.ReactElement {
-  const { siteTitle } = siteMetadata
+  const { siteTitle } = siteMetadata;
   return (
     <Link href="/" className={boxOn ? styles.box : styles.basic}>
       {siteTitle}

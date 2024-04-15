@@ -17,13 +17,13 @@ type PrevNextPosts = [previousPost: Slug | null, nextPost: Slug | null];
  * @returns An array containing the previous and next posts
  */
 export function getPrevAndNextPosts(allPosts: Post[], currentPostSlug: string): PrevNextPosts {
-  if (allPosts.length === 0) return [null, null]; 
+  if (allPosts.length === 0) return [null, null];
 
   const currentIndex = allPosts.findIndex((post) => post.slug === currentPostSlug);
-  if (currentIndex === -1) return [null, null]; 
+  if (currentIndex === -1) return [null, null];
 
-  const previousPost = allPosts[currentIndex + 1] ?? null; 
-  const nextPost = allPosts[currentIndex - 1] ?? null; 
+  const previousPost = allPosts[currentIndex + 1] ?? null;
+  const nextPost = allPosts[currentIndex - 1] ?? null;
 
   return [previousPost, nextPost];
 }

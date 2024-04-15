@@ -1,6 +1,6 @@
 import styles from '@/app/_components/hero.module.css';
+import { CustomImage } from '@/app/_components/custom-image';
 import { siteLogo } from '@/app/_const/site-config';
-import Image from 'next/image';
 
 /**
  * Hero Component
@@ -24,14 +24,13 @@ function Hero({ title, subtitle, imageOn = false }: HeroProps): React.ReactEleme
       {imageOn && (
         <h1 className={styles.image}>
           <figure>
-            <Image
+            <CustomImage
               src={image}
               width={width}
               height={height}
               alt={alt}
               sizes="(max-width: 768px) 100vw, (max-width: 1220px) 50vw, 1220px"
               priority
-              placeholder="blur"
               style={{
                 maxWidth: '100%',
                 height: 'auto',

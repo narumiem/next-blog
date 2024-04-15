@@ -1,7 +1,7 @@
 import Accordion from '@/app/_components/accordion';
+import { CustomImage } from '@/app/_components/custom-image';
 import { versatileBlurData } from '@/app/_const/site-config';
 import parse, { DOMNode, Element, HTMLReactParserOptions, domToReact } from 'html-react-parser';
-import Image from 'next/image';
 
 // Define the options for html-react-parser
 export const options: HTMLReactParserOptions = {
@@ -24,13 +24,12 @@ export const options: HTMLReactParserOptions = {
         return null;
       }
       return (
-        <Image
+        <CustomImage
           src={src}
           width={parsedWidth}
           height={parsedHeight}
           alt={alt || ''}
           sizes="(max-width: 768px) 100vw, 768px"
-          placeholder="blur"
           blurDataURL={versatileBlurData}
         />
       );

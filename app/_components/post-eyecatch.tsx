@@ -1,4 +1,4 @@
-import { CustomImage } from '@/app/_components/image';
+import { CustomImage } from '@/app/_components/custom-image';
 import styles from '@/app/_components/post-eyecatch.module.css';
 import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props';
 

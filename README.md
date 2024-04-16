@@ -25,7 +25,7 @@ The motivation behind this project is to create a highly performant blog platfor
 ![Article Page](screenshots/article.jpg)
 
 ## Tech Stack
-- **Frontend**: Next.js, React, Typescript
+- **Frontend**: Next.js(App Router), React, Typescript
 - **Backend**: WordPress (as a headless CMS)
 - **Styling**: CSS Modules
 - **Hosting**: Netlify (Frontend), Xserver (WordPress backend)

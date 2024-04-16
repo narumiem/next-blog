@@ -21,8 +21,8 @@ This project is a modern, fast, and SEO-friendly blog built using Next.js as the
 The motivation behind this project is to create a highly performant blog platform that combines the robust content management capabilities of WordPress with the sleek, modern frontend provided by Next.js. This setup allows for easy content updates through WordPress while maintaining a cutting-edge frontend performance.
 
 ## Screenshots
-![Homepage](screenshots/home.jpg)
-![Article Page](screenshots/article.jpg)
+- [Home Page](screenshots/home.jpg)
+- [Article Page](screenshots/article.jpg)
 
 ## Tech Stack
 - **Frontend**: Next.js(App Router), React, Typescript

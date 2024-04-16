@@ -34,7 +34,6 @@ The motivation behind this project is to create a highly performant blog platfor
 - Server-side rendered blog pages for improved SEO.
 - Dynamic routing based on WordPress posts.
 - Responsive design for all devices.
-- Light and dark mode support.
 - Complete isolation and concealment of WordPress.
 
 

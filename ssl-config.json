@@ -1,0 +1,9 @@
+{
+  "Dev Proxy": {
+    "hostname": "192.168.1.2",
+    "source": 9001,
+    "target": 9000,
+    "key": "192.168.1.2-key.pem",
+    "cert": "192.168.1.2.pem"
+  }
+}
